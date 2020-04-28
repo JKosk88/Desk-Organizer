@@ -17,7 +17,7 @@
             <CustomButton text="Sign in"/>
           </router-link>
           <br>
-          <router-link to="/About">
+          <router-link to="/Register">
             <CustomButton text="Sign up"/>
           </router-link>
         </div>

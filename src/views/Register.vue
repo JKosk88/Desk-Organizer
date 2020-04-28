@@ -1,19 +1,21 @@
 <template>
     <div class="root">
-      <TopBar title='Sign in' to='/Home'/>
+      <TopBar title='Sign up' to='/Home'/>
       <div class="spacer mt-2"></div>
       <b-container class="text-center" fluid="sm">
         <div class="information-text">
-          <h5>Google Account</h5>
-          <p>Sign in to your Google account to see all your upcoming events
-            from your Google Calendar.</p>
+          <h5>Sign up</h5>
+          <p>When you use this method we will not be
+              able to get events from your Google
+              Calendar and you will have to do it manually.</p>
         </div>
         <div class="functional-container">
           <CustomInput type="email" placeholder="Email*"/>
           <CustomInput type="password" placeholder="Password*"/>
-          <CustomButton class="custom-btn mt-3" text="Sign in"/>
-          <p style="opacity: .7">OR</p>
-          <CustomButton class="custom-btn" text="Sign in with Google"/>
+          <CustomInput type="password" placeholder="Re-enter Password*"/>
+          <p style="opacity: .7">Use 8 or more characters with a mix
+              of letters, numbers & symbols</p>
+          <CustomButton class="custom-btn" text="Submit"/>
           <p style="opacity: .5; font-size: .8rem;">
             By proceeding you also agree to the Terms of Service
             and Privacy Policy</p>
@@ -24,7 +26,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'Register',
 };
 </script>
 
@@ -45,6 +47,9 @@ export default {
 }
 .custom-btn {
   margin-bottom: 15px;
+  @media (min-width: 900px) {
+    margin-top: 30px;
+  }
 }
 .functional-container {
   margin-top: 80px;
