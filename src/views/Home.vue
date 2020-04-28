@@ -1,23 +1,24 @@
 <template>
-    <div class="home d-flex">
+    <div class="root d-flex">
       <b-container class="text-center" fluid="sm">
         <div class="logo-container">
           <div>
           <h1>
-            Desk Organizer
+            Desk <br>
+            Organizer
           </h1>
           </div>
           <div class="logo-container__image">
-            <img class="img-fluid" src='../assets/logo.png'/>
+            <img alt="logo image" class="img-fluid" src='../assets/logo.png'/>
           </div>
         </div>
         <div class="buttons-container">
           <router-link to="/Login">
-            <button class="btn btn-dark w-90">Sign in</button>
+            <CustomButton text="Sign in"/>
           </router-link>
           <br>
           <router-link to="/About">
-            <button class="btn btn-dark w-90">Sign up</button>
+            <CustomButton text="Sign up"/>
           </router-link>
         </div>
       </b-container>
@@ -31,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .home {
+  .root {
     height: 100vh;
     background-color: #000;
     color: #fff;
@@ -42,6 +43,7 @@ export default {
     align-items: center;
     justify-content: center;
     text-align: right;
+    width: 80%;
     margin-top: 100px;
     h1 {
       font-weight: 300;
@@ -51,6 +53,12 @@ export default {
       max-width: 25%;
       margin-left: 10px;
     }
+    @media (min-width: 1250px) {
+      position: absolute;
+      top: 15%;
+      transform: translateX(-50%);
+      left: 50%;
+    }
   }
   .buttons-container {
     position: absolute;
@@ -58,13 +66,11 @@ export default {
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
-    button {
-      width: 100%;
-      margin-bottom: 30px;
-      border-radius: 50px;
-      padding: 10px;
-      border: 1px solid white;
-      background-color: #000;
+    @media (min-width: 900px) {
+      max-width: 40%;
+    }
+    @media (min-width: 1250px) {
+      max-width: 25%;
     }
   }
 </style>
