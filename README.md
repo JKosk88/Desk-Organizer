@@ -1,4 +1,4 @@
-# desktop-organizer
+# desk-organizer
 
 ## Project setup
 ```
