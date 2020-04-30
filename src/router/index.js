@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Main from '../views/Main.vue';
 import AddEvent from '../views/AddEvent.vue';
+import Settings from '../views/Settings.vue';
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     name: 'Event',
     component: AddEvent,
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings,
+  }
 ];
 
 const router = new VueRouter({
