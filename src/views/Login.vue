@@ -13,7 +13,7 @@
           <CustomInput type="password" placeholder="Password*"/>
           <CustomButton class="custom-btn mt-3" text="Sign in"/>
           <p style="opacity: .7">OR</p>
-          <CustomButton class="custom-btn" text="Sign in with Google"/>
+          <LoginWithGoogle></LoginWithGoogle>
           <p style="opacity: .5; font-size: .8rem;">
             By proceeding you also agree to the Terms of Service
             and Privacy Policy</p>

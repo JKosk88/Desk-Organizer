@@ -1,14 +1,29 @@
 <template>
-  <div>
-    <h1>This is Main page</h1>
+  <div class="root d-flex">
     <TemperatureComponent></TemperatureComponent>
     <h1 class="text-center">Calendar</h1>
-    <MyCalendar/>
+    <LogoutWithGoogle class="logout" title="Logout">
+    </LogoutWithGoogle>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Temperature',
+  name: 'Main',
 };
 </script>
+
+<style lang="scss" scoped>
+.root {
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.logout {
+  right: 0;
+  position: absolute;
+  width: auto !important;
+}
+</style>
