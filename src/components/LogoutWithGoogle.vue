@@ -2,7 +2,7 @@
   <div style="width: 100%;">
     <GoogleLogin :params="params" :renderParams="renderParams"
     :logoutButton=true
-    :onSuccess="onSuccess" :onFailure="onFailure">{{title}}</GoogleLogin>
+    :onSuccess="onSuccess">{{title}}</GoogleLogin>
   </div>
 </template>
 

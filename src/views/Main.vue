@@ -1,9 +1,8 @@
 <template>
   <div class="root d-flex">
+    <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
     <TemperatureComponent></TemperatureComponent>
     <h1 class="text-center">Calendar</h1>
-    <LogoutWithGoogle class="logout" title="Logout">
-    </LogoutWithGoogle>
   </div>
 </template>
 

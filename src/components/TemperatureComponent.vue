@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  {{ sampleFunction() }}
+  <span class="time">{{ datenow }}</span>
   <p>Current temp: {{ currentTemp }}</p>
   <p>Hourly temp: {{ hourlyTemp }}</p>
   <p>Daily temp: {{ dailyTemp }}</p>
@@ -11,10 +11,13 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'TemperatureComponent',
   data() {
     return {
+      datenow: '',
       currentTemp: 0,
       dailyTemp: [],
       hourlyTemp: [],
@@ -48,7 +51,15 @@ export default {
           this.pressure = data.currently.pressure;
         });
     },
+    time() {
+      this.datenow = moment().format('HH:mm');
+      setInterval(this.time, 1000);
+    },
   },
+  mounted: function() {
+    this.time();
+    this.sampleFunction();
+  }
 };
 </script>
 
@@ -56,5 +67,8 @@ export default {
 .root {
   width: 40%;
   background-color: #003;
+}
+.time {
+  font-size: 3rem;
 }
 </style>
