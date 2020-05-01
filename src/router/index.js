@@ -32,6 +32,7 @@ const routes = [
   },
   {
     path: '/main',
+    // eslint-disable-next-line no-dupe-keys
     name: 'Main',
     component: Main,
   },
