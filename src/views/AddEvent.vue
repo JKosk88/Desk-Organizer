@@ -34,10 +34,6 @@ export default {
   background-color: #000;
   color: white;
 }
-.information-text {
-  margin-top: 100px;
-  opacity: .8;
-}
 .spacer {
   height: 1px;
   background-color: #fff;
@@ -53,12 +49,12 @@ export default {
   margin-top: 30px;
   @media (min-width: 900px) {
     position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-      min-width: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 40%;
   }
   @media (min-width: 1250px) {
-      min-width: 25%;
+    min-width: 25%;
   }
 }
 </style>
