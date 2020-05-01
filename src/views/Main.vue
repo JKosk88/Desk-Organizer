@@ -1,18 +1,14 @@
 <template>
-  <div class="about">
+  <div>
     <h1>This is Main page</h1>
-    <TemperatureComponentName></TemperatureComponentName>
+    <TemperatureComponent></TemperatureComponent>
+    <h1 class="text-center">Calendar</h1>
+    <MyCalendar/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import TemperatureComponentName from '@/components/TemperatureComponent.vue';
-
 export default {
   name: 'Temperature',
-  components: {
-    TemperatureComponentName,
-  },
 };
 </script>

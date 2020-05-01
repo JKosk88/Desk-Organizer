@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'TemperatureComponentName',
+  name: 'TemperatureComponent',
   data() {
     return {
       currentTemp: 0,
