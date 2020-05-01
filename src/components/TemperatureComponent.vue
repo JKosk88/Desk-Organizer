@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="root">
   {{ sampleFunction() }}
   <p>Current temp: {{ currentTemp }}</p>
   <p>Hourly temp: {{ hourlyTemp }}</p>
@@ -52,6 +52,9 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.root {
+  width: 40%;
+  background-color: #003;
+}
 </style>

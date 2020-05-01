@@ -6,9 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "capacitor-copy": "vue-cli-service capacitor-copy",
+    "capacitor-init": "vue-cli-service capacitor-init",
+    "capacitor-open": "vue-cli-service capacitor-open",
+    "capacitor-update": "vue-cli-service capacitor-update",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@capacitor/cli": "^1.0.0-alpha.38",
+    "@capacitor/core": "^1.0.0-alpha.38",
     "@fullcalendar/core": "^4.4.0",
     "@fullcalendar/daygrid": "^4.4.0",
     "@fullcalendar/vue": "^4.4.0",
@@ -17,13 +23,14 @@
     "core-js": "^3.6.4",
     "firebase": "^7.14.2",
     "register-service-worker": "^1.7.1",
+    "sw-precache": "^5.2.1",
     "vue": "^2.6.11",
+    "vue-google-login": "^2.0.3",
     "vue-router": "^3.1.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.0",
-    "@vue/cli-plugin-eslint": "^4.3.0",
-    "@vue/cli-plugin-pwa": "^4.3.0",
+    "@vue/cli-plugin-pwa": "^4.3.1",
     "@vue/cli-plugin-unit-jest": "^4.3.0",
     "@vue/cli-service": "^4.3.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
@@ -35,6 +42,8 @@
     "node-sass": "^4.12.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-cli-plugin-pwa": "^1.0.0-alpha.1",
+    "vue-template-compiler": "^2.6.11",
+    "workbox-webpack-plugin": "^5.1.3"
   }
 }
