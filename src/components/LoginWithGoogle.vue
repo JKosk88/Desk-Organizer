@@ -2,7 +2,7 @@
   <div style="width: 100%;">
     <GoogleLogin :params="params" :renderParams="renderParams"
     :logoutButton="isLogoutButton"
-    :onSuccess="onSuccess" :onFailure="onFailure">{{title}}</GoogleLogin>
+    :onSuccess="onSuccess">{{title}}</GoogleLogin>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
             return {
                 // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
                 params: {
-                    client_id: "891763685217-acm57jm2tb80g3m2fc7c0f29jma9c6g0.apps.googleusercontent.com"
+                    client_id: "439953774653-vubk61fi297uc1pnm4889gpjftdfvtcc.apps.googleusercontent.com"
                 },
                 // only needed if you want to render the button with the google ui
                 renderParams: {

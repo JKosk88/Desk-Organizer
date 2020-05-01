@@ -1,6 +1,7 @@
 <template>
 <div class="root">
-  {{ sampleFunction() }}
+  {{ today }}
+  <DateTimeComponent></DateTimeComponent>
   <p>Current temp: {{ currentTemp }}</p>
   <p>Hourly temp: {{ hourlyTemp }}</p>
   <p>Daily temp: {{ dailyTemp }}</p>
@@ -15,46 +16,48 @@ export default {
   name: 'TemperatureComponent',
   data() {
     return {
-      currentTemp: 0,
-      dailyTemp: [],
-      hourlyTemp: [],
-      humidity: 0,
-      windSpeed: 0,
-      pressure: 0,
+      temperature: '',
+      hour: '',
+      date: '',
+      weather: '',
+      wind: '',
+      humidity: '',
+      pressure: '',
     };
   },
   methods: {
-    sampleFunction() {
-      const hourlyTemperature = [];
-      const dailyTemperature = [];
-      let currentTemperature;
-      fetch('https://api.darksky.net/forecast/7a31a719515942165dd6e87e76096fb4/50.049683,%2019.944544?units=si')
+    getWeatherData() {
+      const url = 'https://api.darksky.net/forecast/7a31a719515942165dd6e87e76096fb4/50.049683,%2019.944544?units=si';
+
+      fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          currentTemperature = data.currently.temperature;
-          // eslint-disable-next-line no-plusplus
-          for (let i = 0; i < data.daily.data.length; i++) {
-            dailyTemperature.push(data.daily.data[i].temperatureHigh);
-          }
-          // eslint-disable-next-line no-plusplus
-          for (let i = 0; i < data.hourly.data.length; i++) {
-            hourlyTemperature.push(data.hourly.data[i].temperature);
-          }
-          this.currentTemp = currentTemperature;
-          this.hourlyTemp = hourlyTemperature;
-          this.dailyTemp = dailyTemperature;
+          this.temperature = data.currently.temperature;
           this.humidity = data.currently.humidity;
           this.windSpeed = data.currently.windSpeed;
           this.pressure = data.currently.pressure;
+          this.weather = data.currently.icon;
         });
     },
+    time() {
+      this.datenow = moment().format('HH:mm');
+      this.today = moment().format('dddd, Do MMMM YYYY');
+      setInterval(this.time, 1000);
+    },
   },
+  mounted: function() {
+    this.getWeatherData();
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .root {
-  width: 40%;
+  padding: 10px;
+  min-width: 40%;
   background-color: #003;
+}
+.time {
+  font-size: 3rem;
 }
 </style>
