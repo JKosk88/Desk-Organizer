@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import GoogleLogin from 'vue-google-login';
 import App from './App.vue';
 import router from './router';
 import CustomButton from './components/CustomButton.vue';
@@ -7,7 +8,6 @@ import CustomInput from './components/CustomInput.vue';
 import TopBar from './components/TopBar.vue';
 import MyCalendar from './components/MyCalendar.vue';
 import TemperatureComponent from './components/TemperatureComponent.vue';
-import GoogleLogin from 'vue-google-login';
 import LoginWithGoogle from './components/LoginWithGoogle.vue';
 import LogoutWithGoogle from './components/LogoutWithGoogle.vue';
 import DateTimeComponent from './components/DateTimeComponent.vue';

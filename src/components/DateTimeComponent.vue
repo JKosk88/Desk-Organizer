@@ -37,7 +37,7 @@ export default {
 <style scoped>
 .icon{
   width: 50%;
-  filter: invert(.5);
+  filter: invert(1);
   float: right;
 }
 #hour{

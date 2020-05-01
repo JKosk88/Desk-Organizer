@@ -2,12 +2,29 @@
 <div class="root">
   {{ today }}
   <DateTimeComponent></DateTimeComponent>
-  <p>Current temp: {{ currentTemp }}</p>
-  <p>Hourly temp: {{ hourlyTemp }}</p>
-  <p>Daily temp: {{ dailyTemp }}</p>
-  <p>Humidity: {{ humidity }}</p>
-  <p>Wind speed: {{ windSpeed }}</p>
-  <p>Pressure: {{ pressure }}</p>
+  <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
+  <div class="humidity">{{ humidity }} %</div>
+
+  <div id="temp">
+  <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
+  <div class="temp">{{ temperature }} °C</div>
+  </div>
+
+  <br>
+  <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
+  <div class="pressure">{{ pressure }} kPa</div>
+
+  <div id="wind">
+  <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
+  <div class="wind">{{ windSpeed }} km/h</div>
+  </div>
+
+  <div id="tempdiv">
+    <div class="htempdiv" v-for="temp in hourlyTemp">
+      <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
+      <div class="hsum">{{ temp[2] }}</div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -23,6 +40,8 @@ export default {
       wind: '',
       humidity: '',
       pressure: '',
+      hourlyTemp: [],
+      dailyTemp: [],
     };
   },
   methods: {
@@ -37,17 +56,33 @@ export default {
           this.windSpeed = data.currently.windSpeed;
           this.pressure = data.currently.pressure;
           this.weather = data.currently.icon;
+
+          // eslint-disable-next-line no-undef,guard-for-in,no-restricted-syntax
+          for (const val of data.hourly.data) {
+            // eslint-disable-next-line no-undef
+            const time = new Date(val.time * 1000);
+            const timestamp = `${time.getHours()}:00 `;
+            // eslint-disable-next-line radix
+            this.hourlyTemp.push([timestamp, `${parseInt(val.temperature)} °C`, val.summary]);
+          }
+          // eslint-disable-next-line no-undef,guard-for-in,no-restricted-syntax
+          for (const val of data.daily.data) {
+            // eslint-disable-next-line no-undef
+            this.dailyTemp.push(val.temperatureHigh);
+          }
         });
     },
     time() {
+      // eslint-disable-next-line no-undef
       this.datenow = moment().format('HH:mm');
+      // eslint-disable-next-line no-undef
       this.today = moment().format('dddd, Do MMMM YYYY');
       setInterval(this.time, 1000);
     },
   },
-  mounted: function() {
+  mounted() {
     this.getWeatherData();
-  }
+  },
 };
 </script>
 
@@ -59,5 +94,49 @@ export default {
 }
 .time {
   font-size: 3rem;
+}
+#tempdiv{
+  margin-top: 2rem;
+}
+.htempdiv{
+  margin-top: 2px;
+}
+.htemp{
+  font-size: 1.2rem;
+  display: inline-block;
+}
+.hsum{
+  font-size: 1.2rem;
+  /*flex: 0;*/
+  display: inline-block;
+  float: right;
+}
+.iconweather{
+  width: 2.6rem;
+  filter: invert(1);
+  position: static;
+}
+.wind, .humidity, .pressure,.temp{
+  font-size: 2rem;
+  display: inline-block;
+  position: relative;
+  top: 0.7rem;
+  left: 0.7rem;
+  font-family: "Comfortaa Light";
+}
+.humidity{
+  display: inline-block;
+}
+.temp{
+  float: right;
+}
+#temp{
+  float: right;
+}
+#wind{
+  float: right;
+}
+.pressure{
+  display: inline-block;
 }
 </style>
