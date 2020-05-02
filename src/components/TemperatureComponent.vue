@@ -93,10 +93,6 @@ export default {
 
 <style lang="scss" scoped>
 .root {
-  padding: 5px;
-  max-width: 40%;
-  background-color: #003;
-}
   padding: 10px;
   min-width: 40%;
   background-color: #000000;

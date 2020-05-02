@@ -9,9 +9,14 @@
             from your Google Calendar.</p>
         </div>
         <div class="functional-container">
-          <CustomInput type="email" placeholder="Email*"/>
-          <CustomInput type="password" placeholder="Password*"/>
-          <CustomButton class="custom-btn mt-3" text="Sign in"/>
+          <input placeholder="Email*" id="email" type="email" v-model="email">
+          <input placeholder="Password*" type="password" id="pass" v-model="pass">
+<!--          <CustomInput type="email" placeholder="Email*"/>-->
+<!--          <CustomInput type="password" placeholder="Password*"/>-->
+          <p v-show="hint">Make sure you typed in email and password correctly.</p>
+          <div v-on:click="checkUserAccount()">
+            <CustomButton class="custom-btn mt-3" text="Sign in"/>
+          </div>
           <p style="opacity: .7">OR</p>
           <LoginWithGoogle></LoginWithGoogle>
           <p style="opacity: .5; font-size: .8rem;">
@@ -25,6 +30,25 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      email: '',
+      pass: '',
+      hint: false,
+    };
+  },
+  methods: {
+    async checkUserAccount() {
+      // eslint-disable-next-line no-undef
+      await checkAccount(this.email, this.pass).then((defs) => {
+        if (defs) {
+          this.$router.push('/main');
+        } else {
+          this.hint = true;
+        }
+      });
+    },
+  },
 };
 </script>
 
@@ -57,5 +81,13 @@ export default {
   @media (min-width: 1250px) {
       max-width: 25%;
   }
+}
+input {
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 10px;
 }
 </style>

@@ -10,13 +10,13 @@
               Calendar and you will have to do it manually.</p>
         </div>
         <div class="functional-container">
-          <input placeholder="Email*" id="email" v-model="email">
-          <input placeholder="Password*" id="pass1" v-model="pass1">
-          <input placeholder="Re-enter Password**" id="pass2" v-model="pass2">
+          <input placeholder="Email*" id="email" type="email" v-model="email">
+          <input placeholder="Password*" id="pass1" type="password" v-model="pass1">
+          <input placeholder="Re-enter Password**" id="pass2" type="password" v-model="pass2">
 <!--          <CustomInput type="email" placeholder="Email*"/>-->
 <!--          <CustomInput type="password" placeholder="Password*"/>-->
 <!--          <CustomInput type="password" placeholder="Re-enter Password*"/>-->
-          <p style="opacity: .7">For security use 8 or more characters with a mix
+          <p style="opacity: .7"  id="hint">For security use 8 or more characters with a mix
               of letters, numbers & symbols</p>
           <div v-on:click="saveData">
           <CustomButton class="custom-btn" text="Submit" v-on:click="saveData()" />
@@ -42,9 +42,13 @@ export default {
   },
   methods: {
     saveData() {
-      console.log(this.email, this.pass1, this.pass2);
-      // eslint-disable-next-line no-undef
-      saveToDb(this.email, this.pass1);
+      if (this.pass1 === this.pass2 && this.pass1 !== '') {
+        // eslint-disable-next-line no-undef
+        saveToDb(this.email, this.pass1);
+        this.$router.push('/login');
+      } else {
+        document.getElementById('hint').innerText = 'Make sure you re-entered password correctly.';
+      }
     },
   },
 };

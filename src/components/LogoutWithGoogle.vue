@@ -12,23 +12,23 @@ export default {
   name: 'LogoutWithGoogle',
   props: ['title'],
   data() {
-            return {
-                // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
-                params: {
-                    client_id: "891763685217-acm57jm2tb80g3m2fc7c0f29jma9c6g0.apps.googleusercontent.com"
-                },
-                // only needed if you want to render the button with the google ui
-                renderParams: {
-                    longtitle: true,
-                    width: '100%',
-                }
-            }
+    return {
+      // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
+      params: {
+        client_id: '891763685217-acm57jm2tb80g3m2fc7c0f29jma9c6g0.apps.googleusercontent.com',
       },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+        longtitle: true,
+        width: '100%',
+      },
+    };
+  },
   methods: {
-        onSuccess() {
-            this.$router.push('/login');
-        }
-  }
+    onSuccess() {
+      this.$router.push('/login');
+    },
+  },
 };
 </script>
 <style lang="scss">

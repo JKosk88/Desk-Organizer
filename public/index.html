@@ -38,11 +38,33 @@
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
 
+    async function checkAccount(email, pass) {
+      let i = 1;
+      let usersEmail;
+      let userPass;
+      let logged = false;
+
+      while (true) {
+        await firebase.database().ref('users/' + i).once("value", function (data) {
+          usersEmail = data.child('email').node_.value_;
+          userPass = data.child('pass').node_.value_;
+          if (usersEmail === email && userPass === pass) {
+            logged = true;
+            usersEmail = undefined;
+          }
+        });
+        i++;
+        if(usersEmail === undefined){
+          break;
+        }
+      }
+      return logged;
+    }
+
     async function saveToDb(email, pass) {
       let uid = 1;
 
       await firebase.database().ref("ids/").once("value", function(data) {
-        // console.log(data.child('id').node_.value_);
         uid = data.child('id').node_.value_
       });
 
