@@ -11,6 +11,7 @@ import TemperatureComponent from './components/TemperatureComponent.vue';
 import LoginWithGoogle from './components/LoginWithGoogle.vue';
 import LogoutWithGoogle from './components/LogoutWithGoogle.vue';
 import DateTimeComponent from './components/DateTimeComponent.vue';
+import CurrencyComponent from './components/CurrencyComponent.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './registerServiceWorker';
@@ -24,6 +25,7 @@ Vue.component('GoogleLogin', GoogleLogin);
 Vue.component('LoginWithGoogle', LoginWithGoogle);
 Vue.component('LogoutWithGoogle', LogoutWithGoogle);
 Vue.component('DateTimeComponent', DateTimeComponent);
+Vue.component('CurrencyComponent', CurrencyComponent);
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

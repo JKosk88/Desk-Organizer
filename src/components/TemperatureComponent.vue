@@ -1,6 +1,5 @@
 <template>
 <div class="root">
-  {{ today }}
   <DateTimeComponent></DateTimeComponent>
   <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
   <div class="humidity">{{ humidity }} %</div>
@@ -42,7 +41,6 @@ export default {
     return {
       temperature: '',
       hour: '',
-      date: '',
       weather: '',
       wind: '',
       humidity: '',
@@ -86,13 +84,6 @@ export default {
           }
         });
     },
-    time() {
-      // eslint-disable-next-line no-undef
-      this.datenow = moment().format('HH:mm');
-      // eslint-disable-next-line no-undef
-      this.today = moment().format('dddd, Do MMMM YYYY');
-      setInterval(this.time, 1000);
-    },
   },
   mounted() {
     this.getWeatherData();
@@ -102,6 +93,10 @@ export default {
 
 <style lang="scss" scoped>
 .root {
+  padding: 5px;
+  max-width: 40%;
+  background-color: #003;
+}
   padding: 10px;
   min-width: 40%;
   background-color: #000000;
