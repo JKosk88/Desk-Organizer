@@ -5,7 +5,7 @@
     </div>
     <div v-for="(item, index) in currency_items" :key="`item-${index}`" class="currency-item">
       {{item.name}}
-      <span>{{item.value}}</span>
+      <span>{{item.value}} zł</span>
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
   mounted () {
     for(let key in this.currency_items) {
       axios.get(`http://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/?format=json`)
-      .then(response => this.currency_items[key].value = response.data.rates[0].mid)
+      .then(response => this.currency_items[key].value = response.data.rates[0].mid.toFixed(2))
       .catch(err => console.log(err));
     }
   }

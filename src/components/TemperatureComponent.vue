@@ -19,14 +19,14 @@
   </div>
 
   <div class="tempdiv" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
-    <div class="htempdiv" v-for="temp in hourlyTemp">
+    <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
       <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
       <div class="hsum">{{ temp[2] }}</div>
     </div>
   </div>
 
   <div class="tempdiv" v-show="dailyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
-    <div class="htempdiv" v-for="temp in dailyTemp">
+    <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in dailyTemp">
       <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
       <div class="hsum">{{ temp[2] }}</div>
     </div>
@@ -42,9 +42,9 @@ export default {
       temperature: '',
       hour: '',
       weather: '',
-      wind: '',
       humidity: '',
       pressure: '',
+      windSpeed: '',
       hourlyTemp: [],
       dailyTemp: [],
       hourlyForecast: true,
@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     getWeatherData() {
-      const url = 'https://api.darksky.net/forecast/7a31a719515942165dd6e87e76096fb4/50.049683,%2019.944544?units=si';
+      const proxyURL = 'https://cors-anywhere.herokuapp.com/';
+      const url = proxyURL + 'https://api.darksky.net/forecast/7a31a719515942165dd6e87e76096fb4/50.049683,%2019.944544?units=si';
 
       fetch(url)
         .then((response) => response.json())
@@ -63,6 +64,7 @@ export default {
           this.windSpeed = data.currently.windSpeed;
           this.pressure = data.currently.pressure;
           this.weather = data.currently.icon;
+          console.log(this.weather);
 
           // eslint-disable-next-line no-undef,guard-for-in,no-restricted-syntax
           for (const val of data.hourly.data) {
@@ -81,25 +83,22 @@ export default {
             const fullDate = `${month.substr(-2)}.${day.substr(-2)}`;
             // eslint-disable-next-line radix
             this.dailyTemp.push([fullDate, `${parseInt(val.temperatureHigh)} °C`, val.summary]);
-          }
-        });
-    },
+            }
+           }
+        );
+    }
   },
-  mounted() {
+  mounted () {
     this.getWeatherData();
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .root {
   padding: 5px;
   max-width: 40%;
-  background-color: #003;
-}
-  padding: 10px;
-  min-width: 40%;
-  background-color: #000000;
+  background-color: #000;
 }
 .time {
   font-size: 3rem;
@@ -118,7 +117,6 @@ export default {
   font-size: 1.2rem;
   /*flex: 0;*/
   display: inline-block;
-  float: right;
 }
 .iconweather{
   width: 2.6rem;

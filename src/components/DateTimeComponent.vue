@@ -18,18 +18,22 @@ export default {
   data() {
     return {
       hour: '',
+      date: '',
     };
   },
   methods: {
     async getDateTimeFunction() {
       this.hour = moment().format('HH:mm');
       this.date = moment().format('dddd, Do MMMM YYYY');
-      setInterval(this.getDateTimeFunction, 15000);
     },
   },
-  mounted() {
+  mounted () {
     this.getDateTimeFunction();
+    this.timer = setInterval(this.getDateTimeFunction, 1000);
   },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  }
 };
 
 </script>
