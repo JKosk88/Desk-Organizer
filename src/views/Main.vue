@@ -1,6 +1,8 @@
 <template>
   <div class="root d-flex">
+    <router-link to="/home">
     <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
+    </router-link>
     <TemperatureComponent></TemperatureComponent>
     <CurrencyComponent/>
     <h1 class="text-center">Calendar</h1>
