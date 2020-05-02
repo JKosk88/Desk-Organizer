@@ -1,6 +1,6 @@
 <script>
-import FullCalendar from '@fullcalendar/vue'
-import dayGridPlugin from '@fullcalendar/daygrid'
+import FullCalendar from '@fullcalendar/vue';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 export default {
   components: {
@@ -8,12 +8,15 @@ export default {
   },
   data() {
     return {
-      calendarPlugins: [ dayGridPlugin ]
-    }
-  }
-}
+      calendarPlugins: [dayGridPlugin],
+    };
+  },
+};
 </script>
 
 <template>
+  <div>
   <FullCalendar defaultView="dayGridMonth" :plugins="calendarPlugins" />
+    <h1>xdfcvgjhbknm;l,'</h1>
+  </div>
 </template>

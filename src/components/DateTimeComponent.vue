@@ -37,11 +37,11 @@ export default {
 <style scoped>
 .icon{
   width: 50%;
-  filter: invert(.5);
+  filter: invert(1);
   float: right;
 }
 #hour{
-  font-size: 3rem;
+  font-size: 4.5rem;
 }
 #date{
   font-size: 0.8rem;
