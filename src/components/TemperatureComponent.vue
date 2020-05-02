@@ -81,7 +81,8 @@ export default {
             const month = `0${(date.getMonth() + 1).toString()}`;
             const day = `0${(date.getDate() + 1).toString()}`;
             const fullDate = `${month.substr(-2)}.${day.substr(-2)}`;
-            this.dailyTemp.push([fullDate, val.temperatureHigh, val.summary]);
+            // eslint-disable-next-line radix
+            this.dailyTemp.push([fullDate, `${parseInt(val.temperatureHigh)} °C`, val.summary]);
           }
         });
     },

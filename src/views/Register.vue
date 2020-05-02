@@ -10,12 +10,17 @@
               Calendar and you will have to do it manually.</p>
         </div>
         <div class="functional-container">
-          <CustomInput type="email" placeholder="Email*"/>
-          <CustomInput type="password" placeholder="Password*"/>
-          <CustomInput type="password" placeholder="Re-enter Password*"/>
-          <p style="opacity: .7">Use 8 or more characters with a mix
+          <input placeholder="Email*" id="email" v-model="email">
+          <input placeholder="Password*" id="pass1" v-model="pass1">
+          <input placeholder="Re-enter Password**" id="pass2" v-model="pass2">
+<!--          <CustomInput type="email" placeholder="Email*"/>-->
+<!--          <CustomInput type="password" placeholder="Password*"/>-->
+<!--          <CustomInput type="password" placeholder="Re-enter Password*"/>-->
+          <p style="opacity: .7">For security use 8 or more characters with a mix
               of letters, numbers & symbols</p>
-          <CustomButton class="custom-btn" text="Submit"/>
+          <div v-on:click="saveData">
+          <CustomButton class="custom-btn" text="Submit" v-on:click="saveData()" />
+          </div>
           <p style="opacity: .5; font-size: .8rem;">
             By proceeding you also agree to the Terms of Service
             and Privacy Policy</p>
@@ -26,7 +31,22 @@
 
 <script>
 export default {
+  props: ['placeholder', 'type'],
   name: 'Register',
+  data() {
+    return {
+      email: '',
+      pass1: '',
+      pass2: '',
+    };
+  },
+  methods: {
+    saveData() {
+      console.log(this.email, this.pass1, this.pass2);
+      // eslint-disable-next-line no-undef
+      saveToDb(this.email, this.pass1);
+    },
+  },
 };
 </script>
 
@@ -62,5 +82,13 @@ export default {
   @media (min-width: 1250px) {
       max-width: 25%;
   }
+}
+input {
+ width: 100%;
+ margin-bottom: 5px;
+ border-radius: 5px;
+ outline: none;
+ border: none;
+ padding: 10px;
 }
 </style>
