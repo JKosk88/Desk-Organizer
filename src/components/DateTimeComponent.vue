@@ -1,5 +1,5 @@
 <template>
-  <div class="root d-flex justify-content-between">
+  <div class="d-flex justify-content-between">
     <div id="hour">
       {{ hour }}
     </div>
@@ -24,7 +24,7 @@ export default {
     async getDateTimeFunction() {
       this.hour = moment().format('HH:mm');
       this.date = moment().format('dddd, Do MMMM YYYY');
-      setInterval(this.getDateTimeFunction, 60000);
+      setInterval(this.getDateTimeFunction, 15000);
     },
   },
   mounted() {
@@ -44,7 +44,7 @@ export default {
   font-size: 3rem;
 }
 #date{
-  font-size: 1rem;
+  font-size: 0.8rem;
   clear: both;
 }
 </style>

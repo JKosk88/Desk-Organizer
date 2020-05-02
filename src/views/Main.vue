@@ -2,6 +2,7 @@
   <div class="root d-flex">
     <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
     <TemperatureComponent></TemperatureComponent>
+    <CurrencyComponent/>
     <h1 class="text-center">Calendar</h1>
   </div>
 </template>

@@ -1,12 +1,11 @@
 <template>
 <div class="root">
-  {{ today }}
   <DateTimeComponent></DateTimeComponent>
-  <p>Current temp: {{ currentTemp }}</p>
-  <p>Hourly temp: {{ hourlyTemp }}</p>
+  <p>Current temp: {{ temperature }}</p>
+  <p>Hourly temp: {{ hour }}</p>
   <p>Daily temp: {{ dailyTemp }}</p>
   <p>Humidity: {{ humidity }}</p>
-  <p>Wind speed: {{ windSpeed }}</p>
+  <p>Wind speed: {{ wind }}</p>
   <p>Pressure: {{ pressure }}</p>
 </div>
 </template>
@@ -18,7 +17,6 @@ export default {
     return {
       temperature: '',
       hour: '',
-      date: '',
       weather: '',
       wind: '',
       humidity: '',
@@ -39,11 +37,6 @@ export default {
           this.weather = data.currently.icon;
         });
     },
-    time() {
-      this.datenow = moment().format('HH:mm');
-      this.today = moment().format('dddd, Do MMMM YYYY');
-      setInterval(this.time, 1000);
-    },
   },
   mounted: function() {
     this.getWeatherData();
@@ -53,11 +46,8 @@ export default {
 
 <style lang="scss" scoped>
 .root {
-  padding: 10px;
-  min-width: 40%;
+  padding: 5px;
+  max-width: 40%;
   background-color: #003;
-}
-.time {
-  font-size: 3rem;
 }
 </style>
