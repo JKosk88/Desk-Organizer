@@ -19,8 +19,15 @@
   <div class="wind">{{ windSpeed }} km/h</div>
   </div>
 
-  <div id="tempdiv">
+  <div class="tempdiv" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
     <div class="htempdiv" v-for="temp in hourlyTemp">
+      <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
+      <div class="hsum">{{ temp[2] }}</div>
+    </div>
+  </div>
+
+  <div class="tempdiv" v-show="dailyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
+    <div class="htempdiv" v-for="temp in dailyTemp">
       <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
       <div class="hsum">{{ temp[2] }}</div>
     </div>
@@ -42,6 +49,8 @@ export default {
       pressure: '',
       hourlyTemp: [],
       dailyTemp: [],
+      hourlyForecast: true,
+      dailyForecast: false,
     };
   },
   methods: {
@@ -61,14 +70,18 @@ export default {
           for (const val of data.hourly.data) {
             // eslint-disable-next-line no-undef
             const time = new Date(val.time * 1000);
-            const timestamp = `${time.getHours()}:00 `;
+            const timestamp = `${(`0${time.getHours()}`).substr(-2)}:00 `;
             // eslint-disable-next-line radix
             this.hourlyTemp.push([timestamp, `${parseInt(val.temperature)} °C`, val.summary]);
           }
           // eslint-disable-next-line no-undef,guard-for-in,no-restricted-syntax
           for (const val of data.daily.data) {
             // eslint-disable-next-line no-undef
-            this.dailyTemp.push(val.temperatureHigh);
+            const date = new Date(val.time * 1000);
+            const month = `0${(date.getMonth() + 1).toString()}`;
+            const day = `0${(date.getDate() + 1).toString()}`;
+            const fullDate = `${month.substr(-2)}.${day.substr(-2)}`;
+            this.dailyTemp.push([fullDate, val.temperatureHigh, val.summary]);
           }
         });
     },
@@ -90,12 +103,12 @@ export default {
 .root {
   padding: 10px;
   min-width: 40%;
-  background-color: #003;
+  background-color: #000000;
 }
 .time {
   font-size: 3rem;
 }
-#tempdiv{
+.tempdiv{
   margin-top: 2rem;
 }
 .htempdiv{
