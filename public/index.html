@@ -38,18 +38,40 @@
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
 
+    async function addNewEvent(userId, fromDate, toDate, eventTitle){
+      let tempEventId = 1;
+
+      await firebase.database().ref('users/' + userId).once("value", function (data) {
+        tempEventId = data.child('eventId').node_.value_;
+      });
+
+      firebase.database().ref('users/' + userId + '/').set({
+        eventId: tempEventId + 1
+      });
+
+      console.log(tempEventId);
+
+      firebase.database().ref('users/' + userId + '/events/' + tempEventId  + '/').set({
+        from: fromDate,
+        to: toDate,
+        title: eventTitle
+      })
+    }
+
     async function checkAccount(email, pass) {
       let i = 1;
       let usersEmail;
       let userPass;
-      let logged = false;
+      let logged = 0;
 
       while (true) {
         await firebase.database().ref('users/' + i).once("value", function (data) {
+          console.log("starting ...");
           usersEmail = data.child('email').node_.value_;
           userPass = data.child('pass').node_.value_;
+          console.log(data.child('email'), "dfdfdfd");
           if (usersEmail === email && userPass === pass) {
-            logged = true;
+            logged = '1' + i.toString();
             usersEmail = undefined;
           }
         });

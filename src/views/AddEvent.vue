@@ -16,7 +16,9 @@
                 <b-form-datepicker class="w-50" size="sm" offset="-130"></b-form-datepicker>
               </div>
           </div>
-          <CustomButton class="custom-btn" text="Add event"/>
+          <div v-on:click="addEvent()">
+            <CustomButton class="custom-btn" text="Add event"/>
+          </div>
         </div>
       </b-container>
     </div>
@@ -25,6 +27,13 @@
 <script>
 export default {
   name: 'AddEvent',
+  methods: {
+    addEvent() {
+      const localId = sessionStorage.getItem('loggedUserId');
+      // eslint-disable-next-line no-undef
+      addNewEvent(localId, '2', '3', 'titelte');
+    },
+  },
 };
 </script>
 
