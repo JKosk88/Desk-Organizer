@@ -40,8 +40,10 @@ export default {
   methods: {
     async checkUserAccount() {
       // eslint-disable-next-line no-undef
-      await checkAccount(this.email, this.pass).then((defs) => {
-        if (defs) {
+      await checkAccount(this.email, this.pass).then((data) => {
+        console.log(data, 'data from vue');
+        if (data.toString().substr(0, 1) === '1') {
+          sessionStorage.setItem('loggedUserId', data.substr(1));
           this.$router.push('/main');
         } else {
           this.hint = true;
