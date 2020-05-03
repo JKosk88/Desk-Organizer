@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%;">
-    <GoogleLogin :params="params" :renderParams="renderParams"
+    <GoogleLogin id="googleLogout" :params="params" :renderParams="renderParams"
     :logoutButton=true
     :onSuccess="onSuccess">{{title}}</GoogleLogin>
   </div>
@@ -48,5 +48,15 @@ export default {
 }
 .abcRioButtonContents {
   font-size: .9rem !important;
+}
+#googleLogout {
+  background: transparent;
+  color: white;
+  margin: 5px;
+  border: none;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
 }
 </style>

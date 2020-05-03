@@ -61,7 +61,7 @@ export default {
   float: right;
 }
 #hour{
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 #date{
   font-size: 0.8rem;

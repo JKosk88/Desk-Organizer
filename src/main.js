@@ -15,6 +15,7 @@ import LoginWithGoogle from './components/LoginWithGoogle.vue';
 import LogoutWithGoogle from './components/LogoutWithGoogle.vue';
 import DateTimeComponent from './components/DateTimeComponent.vue';
 import CurrencyComponent from './components/CurrencyComponent.vue';
+import { FunctionalCalendar } from 'vue-functional-calendar';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './registerServiceWorker';
@@ -29,6 +30,7 @@ Vue.component('LoginWithGoogle', LoginWithGoogle);
 Vue.component('LogoutWithGoogle', LogoutWithGoogle);
 Vue.component('DateTimeComponent', DateTimeComponent);
 Vue.component('CurrencyComponent', CurrencyComponent);
+Vue.component('FunctionalCalendar', FunctionalCalendar);
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
