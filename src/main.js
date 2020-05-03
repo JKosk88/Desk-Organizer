@@ -18,7 +18,6 @@ import CurrencyComponent from './components/CurrencyComponent.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './registerServiceWorker';
-import vuetify from './plugins/vuetify';
 
 Vue.component('CustomButton', CustomButton);
 Vue.component('CustomInput', CustomInput);

@@ -6,11 +6,6 @@
     <TemperatureComponent></TemperatureComponent>
     <CurrencyComponent/>
     <h1 class="text-center">Calendar</h1>
-    <v-app>
-      <v-content>
-        <MyCalendar/>
-      </v-content>
-    </v-app>
   </div>
 
 </template>
