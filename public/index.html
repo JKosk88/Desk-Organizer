@@ -1,129 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="manifest" href="<%= BASE_URL %>manifest.json">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
-  </head>
-  <body style="background-color: #000;">
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="manifest" href="<%= BASE_URL %>manifest.json">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+</head>
+<body style="background-color: #000;">
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
 
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
 
-  <script>
-    // TODO: Replace the following with your app's Firebase project configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDvMEsaN4ivlogM2tUmMjGHpCER7tezSfI",
-      authDomain: "desk-organizer.firebaseapp.com",
-      databaseURL: "https://desk-organizer.firebaseio.com",
-      projectId: "desk-organizer",
-      storageBucket: "desk-organizer.appspot.com",
-      messagingSenderId: "439953774653",
-      appId: "1:439953774653:web:ac2ea26c1367f39b68f254",
-      measurementId: "G-KWETXEY06J"
-    };
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var database = firebase.database();
+<script>
+  // TODO: Replace the following with your app's Firebase project configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvMEsaN4ivlogM2tUmMjGHpCER7tezSfI",
+    authDomain: "desk-organizer.firebaseapp.com",
+    databaseURL: "https://desk-organizer.firebaseio.com",
+    projectId: "desk-organizer",
+    storageBucket: "desk-organizer.appspot.com",
+    messagingSenderId: "439953774653",
+    appId: "1:439953774653:web:ac2ea26c1367f39b68f254",
+    measurementId: "G-KWETXEY06J"
+  };
 
-    async function addNewEvent(userId, fromDate, toDate, eventTitle){
-      let tempEventId = 1;
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var database = firebase.database();
 
-      await firebase.database().ref('users/' + userId + '/').once("value", function (data) {
-        tempEventId = data.child('eventId').node_.value_;
+  async function addNewEvent(userId, fromDate, toDate, eventTitle){
+    let tempEventId = 1;
+
+    await firebase.database().ref('users/' + userId + '/').once("value", function (data) {
+      tempEventId = data.child('eventId').node_.value_;
+    });
+
+    console.log(tempEventId);
+
+    await firebase.database().ref('users/' + userId + '/').update({
+      eventId: tempEventId + 1
+    });
+
+    console.log(tempEventId);
+
+    firebase.database().ref('users/' + userId + '/events/' + tempEventId + '/').set({
+      from: fromDate,
+      to: toDate,
+      title: eventTitle
+    });
+
+    // firebase.database().ref('users/' + userId + '/events/' + tempEventId + '/2').set({
+    //   from: fromDate,
+    //   to: toDate,
+    //   title: eventTitle
+    // })
+  }
+
+  async function checkAccount(email, pass) {
+    let i = 1;
+    let usersEmail;
+    let userPass;
+    let logged = 0;
+
+    while (true) {
+      await firebase.database().ref('users/' + i + '/').once("value", function (data) {
+        usersEmail = data.child('email').node_.value_;
+        userPass = data.child('pass').node_.value_;
+        if (usersEmail === email && userPass === pass) {
+          logged = '1' + i.toString();
+          usersEmail = undefined;
+        }
       });
-
-      console.log(tempEventId);
-
-      await firebase.database().ref('users/' + userId + '/').update({
-        eventId: tempEventId + 1
-      });
-
-      console.log(tempEventId);
-
-      firebase.database().ref('users/' + userId + '/events/' + tempEventId + '/').set({
-          from: fromDate,
-          to: toDate,
-          title: eventTitle
-      });
-
-      // firebase.database().ref('users/' + userId + '/events/' + tempEventId + '/2').set({
-      //   from: fromDate,
-      //   to: toDate,
-      //   title: eventTitle
-      // })
+      i++;
+      if(usersEmail === undefined && i > 10){
+        break;
+      }
     }
+    return logged;
+  }
 
-    async function checkAccount(email, pass) {
-      let i = 1;
-      let usersEmail;
-      let userPass;
-      let logged = 0;
+  async function saveToDb(email, pass) {
+    let uid = 1;
 
-      while (true) {
-        await firebase.database().ref('users/' + i + '/').once("value", function (data) {
-          usersEmail = data.child('email').node_.value_;
-          userPass = data.child('pass').node_.value_;
-          if (usersEmail === email && userPass === pass) {
-            logged = '1' + i.toString();
-            usersEmail = undefined;
-          }
-        });
-        i++;
-        if(usersEmail === undefined && i > 10){
-          break;
+    await firebase.database().ref("ids/").once("value", function(data) {
+      uid = data.child('id').node_.value_
+    });
+
+    // console.log(uid);
+
+    firebase.database().ref('ids/').set({
+      id: uid + 1
+    });
+
+    firebase.database().ref('users/' + uid).set({
+      email: email,
+      pass: pass,
+      id: uid,
+      eventId: 1,
+      events: {}
+    }, function (error) {
+      if (error) {
+        console.log("err")
+      } else {
+        console.log("success")
+      }
+    });
+  }
+
+  function drawChart(ctx, data) {
+    // var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
         }
       }
-      return logged;
-    }
+    });
+  }
+</script>
 
-    async function saveToDb(email, pass) {
-      let uid = 1;
-
-      await firebase.database().ref("ids/").once("value", function(data) {
-        uid = data.child('id').node_.value_
-      });
-
-      // console.log(uid);
-
-      firebase.database().ref('ids/').set({
-        id: uid + 1
-      });
-
-      firebase.database().ref('users/' + uid).set({
-        email: email,
-        pass: pass,
-        id: uid,
-        eventId: 1,
-        events: {}
-      }, function (error) {
-        if (error) {
-          console.log("err")
-        } else {
-          console.log("success")
-        }
-      });
-    }
-  </script>
-
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+<noscript>
+  <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>

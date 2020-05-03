@@ -1,46 +1,51 @@
 <template>
-<div class="root">
-  <DateTimeComponent v-if="weather" :weather="weather"></DateTimeComponent>
-  <div class="d-flex justify-content-between">
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
-      <div class="humidity">{{ humidity }} %</div>
+  <div class="root">
+    <DateTimeComponent v-if="weather" :weather="weather"></DateTimeComponent>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
+        <div class="humidity">{{ humidity }} %</div>
+      </div>
+
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
+        <div class="temp">{{ temperature }} °C</div>
+      </div>
     </div>
 
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
-      <div class="temp">{{ temperature }} °C</div>
+    <div class="d-flex justify-content-between mt-3">
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
+        <div class="pressure">{{ pressure }} kPa</div>
+      </div>
+
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
+        <div class="wind">{{ windSpeed }} km/h</div>
+      </div>
+    </div>
+    <div v-show="hourlyForecast">
+      <canvas class="htempdiv d-flex justify-content-between" id="myChartHourly" width="400" height="100"></canvas>
+    </div>
+    <div v-show="dailyForecast">
+      <canvas class="htempdiv d-flex justify-content-between" id="myChartDaily" width="400" height="100"></canvas>
+    </div>
+    <div class="mt-2" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
+      <div class="htempdiv d-flex justify-content-between" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
+        <div>{{ temp[0] }}</div>
+        <div>{{ temp[2] }}</div>
+        <div><b>{{ temp[1] }}</b></div>
+      </div>
+    </div>
+
+    <div class="mt-2" v-show="dailyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
+      <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in dailyTemp">
+        <div class="d-flex justify-content-between">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
+        <div>{{ temp[2] }}</div>
+        <div class="spacer"></div>
+      </div>
     </div>
   </div>
-
-  <div class="d-flex justify-content-between mt-3">
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
-      <div class="pressure">{{ pressure }} kPa</div>
-    </div>
-
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
-      <div class="wind">{{ windSpeed }} km/h</div>
-    </div>
-  </div>
-
-  <div class="mt-2" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
-    <div class="htempdiv d-flex justify-content-between" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
-      <div>{{ temp[0] }}</div>
-      <div>{{ temp[2] }}</div>
-      <div><b>{{ temp[1] }}</b></div>
-    </div>
-  </div>
-
-  <div class="mt-2" v-show="dailyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
-    <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in dailyTemp">
-      <div class="d-flex justify-content-between">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
-      <div>{{ temp[2] }}</div>
-      <div class="spacer"></div>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -55,7 +60,9 @@ export default {
       pressure: '',
       windSpeed: '',
       hourlyTemp: [],
+      hourlyTempChart: [],
       dailyTemp: [],
+      dailyTempChart: [],
       hourlyForecast: false,
       dailyForecast: true,
     };
@@ -63,7 +70,7 @@ export default {
   methods: {
     getWeatherData() {
       const proxyURL = 'https://cors-anywhere.herokuapp.com/';
-      const url = proxyURL + 'https://api.darksky.net/forecast/7a31a719515942165dd6e87e76096fb4/50.049683,%2019.944544?units=si';
+      const url = `${proxyURL}https://api.darksky.net/forecast/7a31a719515942165dd6e87e76096fb4/50.049683,%2019.944544?units=si`;
 
       fetch(url)
         .then((response) => response.json())
@@ -78,54 +85,116 @@ export default {
             const time = new Date(val.time * 1000);
             const timestamp = `${(`0${time.getHours()}`).substr(-2)}:00 `;
             this.hourlyTemp.push([timestamp, `${parseInt(val.temperature)} °C`, val.summary]);
+            // eslint-disable-next-line radix
+            this.hourlyTempChart.push(parseInt(val.temperature));
           }
+
           for (const val of data.daily.data) {
             const date = new Date(val.time * 1000);
             const month = `0${(date.getMonth() + 1).toString()}`;
             const day = `0${(date.getDate() + 1).toString()}`;
             const fullDate = `${month.substr(-2)}.${day.substr(-2)}`;
             this.dailyTemp.push([fullDate, `${parseInt(val.temperatureHigh)} °C`, val.summary]);
-            }
-           }
-        );
-    }
+
+            // eslint-disable-next-line radix
+            this.dailyTempChart.push(parseInt(val.temperatureHigh));
+          }
+          // console.log(`Daily temp: ${this.dailyTempChart}`);
+          // console.log(`Hourly temp: ${this.hourlyTempChart}`, typeof (this.hourlyTempChart[2]));
+          this.drawChartDaily();
+          this.drawChartHourly();
+        });
+      console.log('finish get');
+    },
+    drawChartHourly() {
+      const datas = this.hourlyTempChart;
+      const ctx = document.getElementById('myChartHourly').getContext('2d');
+      // eslint-disable-next-line no-unused-vars,no-undef
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: datas,
+          datasets: [
+            {
+              label: 'Celsius degrees',
+              backgroundColor: '#123456',
+              data: datas,
+            },
+          ],
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            // text: 'd',
+          },
+        },
+      });
+    },
+    drawChartDaily() {
+      const datas = this.dailyTempChart;
+      // console.log(this.hourlyTempChart, typeof (this.hourlyTempChart), 'type of');
+      const ctx = document.getElementById('myChartDaily').getContext('2d');
+      // eslint-disable-next-line no-unused-vars,no-undef
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: datas,
+          datasets: [
+            {
+              label: 'Celsius degrees',
+              backgroundColor: '#123456',
+              data: datas,
+            },
+          ],
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            // text: 'd',
+          },
+        },
+      });
+      console.log('finish Daily');
+    },
   },
-  mounted () {
-    this.getWeatherData();
-  }
-}
+  async mounted() {
+    await this.getWeatherData();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.root {
-  padding: 10px;
-  width: 40%;
-}
-.time {
-  font-size: 3rem;
-}
-.htempdiv{
-  margin-top: 2px;
-}
-.iconweather{
-  width: 20%;
-  filter: invert(1);
-}
-.wind, .humidity, .pressure,.temp{
-  font-size: 1rem;
-  position: relative;
-  left: 0.7rem;
-  font-family: "Comfortaa Light";
-}
-.temp{
-  float: right;
-}
-.weather-row {
-  width: 40%;
-}
-.spacer {
-  height: .1px;
-  background-color: #fff;
-  opacity: .3;
-}
+  .root {
+    padding: 10px;
+    width: 40%;
+  }
+  .time {
+    font-size: 3rem;
+  }
+  .htempdiv{
+    margin-top: 2px;
+  }
+  .iconweather{
+    width: 20%;
+    filter: invert(1);
+  }
+  .wind, .humidity, .pressure,.temp{
+    font-size: 1rem;
+    position: relative;
+    left: 0.7rem;
+    font-family: "Comfortaa Light";
+  }
+  .temp{
+    float: right;
+  }
+  .weather-row {
+    width: 40%;
+  }
+  .spacer {
+    height: .1px;
+    background-color: #fff;
+    opacity: .3;
+  }
 </style>
