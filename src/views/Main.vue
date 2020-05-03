@@ -17,7 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 .root {
-  background-color: #000;
   color: #fff;
   height: 100vh;
   overflow: hidden;
