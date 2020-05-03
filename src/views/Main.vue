@@ -7,6 +7,7 @@
     <CurrencyComponent/>
     <h1 class="text-center">Calendar</h1>
   </div>
+
 </template>
 
 <script>

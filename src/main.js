@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import GoogleLogin from 'vue-google-login';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import VueTextareaAutosize from 'vue-textarea-autosize';
 import App from './App.vue';
 import router from './router';
 import CustomButton from './components/CustomButton.vue';
@@ -29,8 +32,22 @@ Vue.component('CurrencyComponent', CurrencyComponent);
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(VueTextareaAutosize);
 Vue.config.productionTip = false;
 
+firebase.initializeApp({
+  apiKey: 'AIzaSyDvMEsaN4ivlogM2tUmMjGHpCER7tezSfI',
+  authDomain: 'desk-organizer.firebaseapp.com',
+  databaseURL: 'https://desk-organizer.firebaseio.com',
+  projectId: 'desk-organizer',
+  storageBucket: 'desk-organizer.appspot.com',
+  messagingSenderId: '439953774653',
+  appId: '1:439953774653:web:ac2ea26c1367f39b68f254',
+  measurementId: 'G-KWETXEY06J',
+});
+
+
+export const db = firebase.firestore();
 
 new Vue({
   router,

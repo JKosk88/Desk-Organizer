@@ -5,12 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "capacitor-copy": "vue-cli-service capacitor-copy",
     "capacitor-init": "vue-cli-service capacitor-init",
     "capacitor-open": "vue-cli-service capacitor-open",
-    "capacitor-update": "vue-cli-service capacitor-update",
-    "test:unit": "vue-cli-service test:unit"
+    "capacitor-update": "vue-cli-service capacitor-update"
   },
   "dependencies": {
     "@capacitor/cli": "^1.0.0-alpha.38",
@@ -28,7 +28,8 @@
     "sw-precache": "^5.2.1",
     "vue": "^2.6.11",
     "vue-google-login": "^2.0.3",
-    "vue-router": "^3.1.6"
+    "vue-router": "^3.1.6",
+    "vue-textarea-autosize": "^1.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.0",

@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  <DateTimeComponent></DateTimeComponent>
+  <DateTimeComponent v-if="weather" :weather="weather"></DateTimeComponent>
   <div class="d-flex justify-content-between">
     <div class="d-flex weather-row">
       <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
@@ -73,28 +73,19 @@ export default {
           this.windSpeed = data.currently.windSpeed;
           this.pressure = data.currently.pressure;
           this.weather = data.currently.icon;
-          console.log(this.weather);
 
-          // eslint-disable-next-line no-undef,guard-for-in,no-restricted-syntax
           for (const val of data.hourly.data) {
-            // eslint-disable-next-line no-undef
             const time = new Date(val.time * 1000);
             const timestamp = `${(`0${time.getHours()}`).substr(-2)}:00 `;
-            // eslint-disable-next-line radix
             this.hourlyTemp.push([timestamp, `${parseInt(val.temperature)} °C`, val.summary]);
           }
-          // eslint-disable-next-line no-undef,guard-for-in,no-restricted-syntax
           for (const val of data.daily.data) {
-            // eslint-disable-next-line no-undef
             const date = new Date(val.time * 1000);
             const month = `0${(date.getMonth() + 1).toString()}`;
             const day = `0${(date.getDate() + 1).toString()}`;
             const fullDate = `${month.substr(-2)}.${day.substr(-2)}`;
-            // eslint-disable-next-line radix
             this.dailyTemp.push([fullDate, `${parseInt(val.temperatureHigh)} °C`, val.summary]);
             }
-            console.log("Daily temp: "+this.dailyTemp);
-            console.log("Hourly temp: "+this.hourlyTemp);
            }
         );
     }
