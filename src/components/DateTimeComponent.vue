@@ -4,7 +4,7 @@
       {{ hour }}
     </div>
     <div>
-      <img class="icon img-fluid mr-4" alt="weather icon" src='../assets/rain.svg'/>
+      <img class="icon img-fluid" alt="weather icon" src='../assets/rain.svg'/>
       <p id="date">{{ date }}</p>
     </div>
   </div>
@@ -50,5 +50,6 @@ export default {
 #date{
   font-size: 0.8rem;
   clear: both;
+  text-align: right;
 }
 </style>

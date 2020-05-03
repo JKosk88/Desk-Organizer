@@ -25,17 +25,19 @@
     </div>
   </div>
 
-  <div class="tempdiv" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
-    <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
-      <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
-      <div class="hsum">{{ temp[2] }}</div>
+  <div class="mt-2" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
+    <div class="htempdiv d-flex justify-content-between" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
+      <div>{{ temp[0] }}</div>
+      <div>{{ temp[2] }}</div>
+      <div><b>{{ temp[1] }}</b></div>
     </div>
   </div>
 
-  <div class="tempdiv" v-show="dailyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
+  <div class="mt-2" v-show="dailyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
     <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in dailyTemp">
-      <div class="htemp">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
-      <div class="hsum">{{ temp[2] }}</div>
+      <div class="d-flex justify-content-between">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
+      <div>{{ temp[2] }}</div>
+      <div class="spacer"></div>
     </div>
   </div>
 </div>
@@ -54,8 +56,8 @@ export default {
       windSpeed: '',
       hourlyTemp: [],
       dailyTemp: [],
-      hourlyForecast: true,
-      dailyForecast: false,
+      hourlyForecast: false,
+      dailyForecast: true,
     };
   },
   methods: {
@@ -91,6 +93,8 @@ export default {
             // eslint-disable-next-line radix
             this.dailyTemp.push([fullDate, `${parseInt(val.temperatureHigh)} °C`, val.summary]);
             }
+            console.log("Daily temp: "+this.dailyTemp);
+            console.log("Hourly temp: "+this.hourlyTemp);
            }
         );
     }
@@ -109,19 +113,8 @@ export default {
 .time {
   font-size: 3rem;
 }
-.tempdiv{
-  margin-top: 2rem;
-}
 .htempdiv{
   margin-top: 2px;
-}
-.htemp{
-  font-size: 1.2rem;
-  display: inline-block;
-}
-.hsum{
-  font-size: 1.2rem;
-  display: inline-block;
 }
 .iconweather{
   width: 20%;
@@ -133,16 +126,15 @@ export default {
   left: 0.7rem;
   font-family: "Comfortaa Light";
 }
-.humidity{
-  display: inline-block;
-}
 .temp{
   float: right;
 }
-.pressure{
-  display: inline-block;
-}
 .weather-row {
   width: 40%;
+}
+.spacer {
+  height: .1px;
+  background-color: #fff;
+  opacity: .3;
 }
 </style>

@@ -33,17 +33,17 @@ export default {
         {
           name: 'GBP',
           value: null,
-          yesterday_value: null,
+          yesterday_value: 3,
         },
         {
           name: 'USD',
           value: null,
-          yesterday_value: null,
+          yesterday_value: 3,
         },
         {
           name: 'NOK',
           value: null,
-          yesterday_value: null,
+          yesterday_value: 3,
         },
         {
           name: 'SEK',
@@ -92,6 +92,6 @@ export default {
   max-width: 40%;
 }
 .currency-arrow {
-  max-width: 5%;
+  max-width: 10%;
 }
 </style>
