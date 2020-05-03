@@ -61,26 +61,26 @@ export default {
   methods: {
     goToSettings() {
       this.$router.push('/settings');
-    }
+    },
   },
   computed: {
-    yesterday_date: function () {
-        return moment().subtract(1, 'days').format('YYYY-MM-DD');
-      }
+    yesterday_date() {
+      return moment().subtract(1, 'days').format('YYYY-MM-DD');
+    },
   },
-  mounted () {
-    for(let key in this.currency_items) {
+  mounted() {
+    for (const key in this.currency_items) {
       axios.get(`http://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/?format=json`)
-      .then(response => this.currency_items[key].value = response.data.rates[0].mid.toFixed(2))
-      .catch(err => console.log(err));
+        .then((response) => this.currency_items[key].value = response.data.rates[0].mid.toFixed(2))
+        .catch((err) => console.log(err));
     }
-    for(let key in this.currency_items) {
+    for (const key in this.currency_items) {
       axios.get(`http://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/${this.yesterday_date}/?format=json`)
-      .then(response => this.currency_items[key].yesterday_value = response.data.rates[0].mid.toFixed(2))
-      .catch(err => console.log(err));
+        .then((response) => this.currency_items[key].yesterday_value = response.data.rates[0].mid.toFixed(2))
+        .catch((err) => console.log(err));
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
