@@ -1,21 +1,28 @@
 <template>
 <div class="root">
   <DateTimeComponent></DateTimeComponent>
-  <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
-  <div class="humidity">{{ humidity }} %</div>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex weather-row">
+      <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
+      <div class="humidity">{{ humidity }} %</div>
+    </div>
 
-  <div id="temp">
-  <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
-  <div class="temp">{{ temperature }} °C</div>
+    <div class="d-flex weather-row">
+      <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
+      <div class="temp">{{ temperature }} °C</div>
+    </div>
   </div>
 
-  <br>
-  <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
-  <div class="pressure">{{ pressure }} kPa</div>
+  <div class="d-flex justify-content-between mt-3">
+    <div class="d-flex weather-row">
+      <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
+      <div class="pressure">{{ pressure }} kPa</div>
+    </div>
 
-  <div id="wind">
-  <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
-  <div class="wind">{{ windSpeed }} km/h</div>
+    <div class="d-flex weather-row">
+      <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
+      <div class="wind">{{ windSpeed }} km/h</div>
+    </div>
   </div>
 
   <div class="tempdiv" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast, dailyForecast = !dailyForecast">
@@ -96,9 +103,8 @@ export default {
 
 <style lang="scss" scoped>
 .root {
-  padding: 5px;
-  max-width: 40%;
-  background-color: #000;
+  padding: 10px;
+  width: 40%;
 }
 .time {
   font-size: 3rem;
@@ -115,19 +121,15 @@ export default {
 }
 .hsum{
   font-size: 1.2rem;
-  /*flex: 0;*/
   display: inline-block;
 }
 .iconweather{
-  width: 2.6rem;
+  width: 20%;
   filter: invert(1);
-  position: static;
 }
 .wind, .humidity, .pressure,.temp{
-  font-size: 2rem;
-  display: inline-block;
+  font-size: 1rem;
   position: relative;
-  top: 0.7rem;
   left: 0.7rem;
   font-family: "Comfortaa Light";
 }
@@ -137,13 +139,10 @@ export default {
 .temp{
   float: right;
 }
-#temp{
-  float: right;
-}
-#wind{
-  float: right;
-}
 .pressure{
   display: inline-block;
+}
+.weather-row {
+  width: 40%;
 }
 </style>

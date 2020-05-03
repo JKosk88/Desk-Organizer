@@ -55,7 +55,6 @@ export default {
 <style lang="scss" scoped>
 .root {
   height: 100vh;
-  background-color: #000;
   color: white;
 }
 .information-text {
