@@ -10,8 +10,8 @@
               Calendar and you will have to do it manually.</p>
         </div>
         <div class="functional-container">
-          <input placeholder="Email*" id="email" type="email" v-model="email">
-          <input placeholder="Password*" id="pass1" type="password" v-model="pass1">
+          <input placeholder="Email*" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" type="email" v-model="email">
+          <input placeholder="Password*" id="pass1" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" type="password" v-model="pass1">
           <input placeholder="Re-enter Password**" id="pass2" type="password" v-model="pass2">
 <!--          <CustomInput type="email" placeholder="Email*"/>-->
 <!--          <CustomInput type="password" placeholder="Password*"/>-->

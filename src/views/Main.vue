@@ -5,7 +5,9 @@
     </router-link>
     <TemperatureComponent></TemperatureComponent>
     <CurrencyComponent/>
-    <h1 class="text-center">Calendar</h1>
+    <div class="calendar-container">
+      <functional-calendar :is-dark='true'></functional-calendar>
+    </div>
   </div>
 
 </template>
@@ -27,5 +29,9 @@ export default {
   right: 0;
   position: absolute;
   width: auto !important;
+}
+.calendar-container {
+  display: flex;
+  align-items: center;
 }
 </style>
