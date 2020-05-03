@@ -41,21 +41,29 @@
     async function addNewEvent(userId, fromDate, toDate, eventTitle){
       let tempEventId = 1;
 
-      await firebase.database().ref('users/' + userId).once("value", function (data) {
+      await firebase.database().ref('users/' + userId + '/').once("value", function (data) {
         tempEventId = data.child('eventId').node_.value_;
       });
 
-      firebase.database().ref('users/' + userId + '/').set({
+      console.log(tempEventId);
+
+      await firebase.database().ref('users/' + userId + '/').update({
         eventId: tempEventId + 1
       });
 
       console.log(tempEventId);
 
-      firebase.database().ref('users/' + userId + '/events/' + tempEventId  + '/').set({
-        from: fromDate,
-        to: toDate,
-        title: eventTitle
-      })
+      firebase.database().ref('users/' + userId + '/events/' + tempEventId + '/').set({
+          from: fromDate,
+          to: toDate,
+          title: eventTitle
+      });
+
+      // firebase.database().ref('users/' + userId + '/events/' + tempEventId + '/2').set({
+      //   from: fromDate,
+      //   to: toDate,
+      //   title: eventTitle
+      // })
     }
 
     async function checkAccount(email, pass) {
@@ -65,18 +73,16 @@
       let logged = 0;
 
       while (true) {
-        await firebase.database().ref('users/' + i).once("value", function (data) {
-          console.log("starting ...");
+        await firebase.database().ref('users/' + i + '/').once("value", function (data) {
           usersEmail = data.child('email').node_.value_;
           userPass = data.child('pass').node_.value_;
-          console.log(data.child('email'), "dfdfdfd");
           if (usersEmail === email && userPass === pass) {
             logged = '1' + i.toString();
             usersEmail = undefined;
           }
         });
         i++;
-        if(usersEmail === undefined){
+        if(usersEmail === undefined && i > 10){
           break;
         }
       }
@@ -90,7 +96,7 @@
         uid = data.child('id').node_.value_
       });
 
-      console.log(uid);
+      // console.log(uid);
 
       firebase.database().ref('ids/').set({
         id: uid + 1
@@ -100,6 +106,8 @@
         email: email,
         pass: pass,
         id: uid,
+        eventId: 1,
+        events: {}
       }, function (error) {
         if (error) {
           console.log("err")
