@@ -7,7 +7,7 @@
       <div class="humidity">{{ humidity }} %</div>
     </div>
 
-    <div class="d-flex weather-row">
+    <div class="d-flex weather-row justify-content-center">
       <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
       <div class="temp">{{ temperature }} °C</div>
     </div>
@@ -19,7 +19,7 @@
       <div class="pressure">{{ pressure }} kPa</div>
     </div>
 
-    <div class="d-flex weather-row">
+    <div class="d-flex weather-row justify-content-center">
       <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
       <div class="wind">{{ windSpeed }} km/h</div>
     </div>

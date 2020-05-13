@@ -54,18 +54,27 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .icon{
   width: 40%;
   filter: invert(1);
   float: right;
+  @media (min-width: 900px) {
+    width: 25%;
+  }
 }
 #hour{
   font-size: 3rem;
+  @media (min-width: 900px) {
+    font-size: 4.5rem;
+  }
 }
 #date{
   font-size: 0.8rem;
   clear: both;
   text-align: right;
+  @media (min-width: 900px) {
+    font-size: 1rem;
+  }
 }
 </style>
