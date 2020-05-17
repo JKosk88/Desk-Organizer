@@ -15,7 +15,7 @@ export default {
             return {
                 // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
                 params: {
-                    client_id: "439953774653-vubk61fi297uc1pnm4889gpjftdfvtcc.apps.googleusercontent.com"
+                    client_id: "439953774653-4la7p6s16dg801fd64pjqn7ekliaphp8.apps.googleusercontent.com"
                 },
                 // only needed if you want to render the button with the google ui
                 renderParams: {
