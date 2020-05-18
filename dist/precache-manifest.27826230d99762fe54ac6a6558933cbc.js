@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d5ec9e8243c2485a9315",
-    "url": "/Desk-Organizer/css/app.35655b41.css"
+    "revision": "474396d3717d38ea64cc",
+    "url": "/Desk-Organizer/css/app.cf5ad705.css"
   },
   {
     "revision": "3df87fa644f452dd943f",
@@ -68,12 +68,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Desk-Organizer/img/wind.e83fbe13.svg"
   },
   {
-    "revision": "883f5f63155ebaf9dca51c905f4cf9a8",
+    "revision": "8f510ed874591313689f8b9df8a841bb",
     "url": "/Desk-Organizer/index.html"
   },
   {
-    "revision": "d5ec9e8243c2485a9315",
-    "url": "/Desk-Organizer/js/app.5ab8abaf.js"
+    "revision": "474396d3717d38ea64cc",
+    "url": "/Desk-Organizer/js/app.63fe5989.js"
   },
   {
     "revision": "3df87fa644f452dd943f",

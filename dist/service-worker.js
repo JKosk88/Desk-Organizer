@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Desk-Organizer/precache-manifest.7cec83f006d6aad76684cc4408d7c581.js"
+  "/Desk-Organizer/precache-manifest.27826230d99762fe54ac6a6558933cbc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "desktop-organizer"});
