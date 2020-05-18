@@ -6,7 +6,7 @@
     <TemperatureComponent></TemperatureComponent>
     <CurrencyComponent/>
     <div class="calendar-container">
-      <functional-calendar :is-dark='true'></functional-calendar>
+      <functional-calendar class="calendar-container__calendar" :is-dark='true'></functional-calendar>
     </div>
   </div>
 
@@ -32,6 +32,21 @@ export default {
 }
 .calendar-container {
   display: flex;
-  align-items: center;
+  width: 40%;
+  justify-content: center;
+  align-items: top;
+  position: relative;
+  padding: 10px;
+  @media (min-width: 900px) {
+    margin-top: 50px;
+  }
+}
+.calendar-container__calendar {
+  max-height: 50%;
+  min-width: 50%;
+  @media (min-width: 900px) {
+    width: 100%;
+    margin-top: 10%;
+  }
 }
 </style>
