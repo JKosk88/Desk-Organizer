@@ -70,12 +70,12 @@ export default {
   },
   mounted() {
     for (const key in this.currency_items) {
-      axios.get(`http://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/?format=json`)
+      axios.get(`https://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/?format=json`)
         .then((response) => this.currency_items[key].value = response.data.rates[0].mid.toFixed(2))
         .catch((err) => console.log(err));
     }
     for (const key in this.currency_items) {
-      axios.get(`http://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/${this.yesterday_date}/?format=json`)
+      axios.get(`https://api.nbp.pl/api/exchangerates/rates/a/${this.currency_items[key].name}/${this.yesterday_date}/?format=json`)
         .then((response) => this.currency_items[key].yesterday_value = response.data.rates[0].mid.toFixed(2))
         .catch((err) => console.log(err));
     }

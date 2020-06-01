@@ -1,3 +1,3 @@
 module.exports = {
-publicPath: '/Desk-Organizer/'
+publicPath: '/desk-organizer/'
 }
