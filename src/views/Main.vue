@@ -58,7 +58,7 @@ export default {
   .vfc-calendar {
     max-height: 250px;
     @media (min-width: 900px) {
-      max-height: auto;
+      max-height: 100%;
     }
   }
 }
