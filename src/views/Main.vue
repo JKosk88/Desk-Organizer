@@ -4,6 +4,7 @@
     <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
     </router-link>
     <TemperatureComponent></TemperatureComponent>
+    <p>{{color2}}</p>
     <CurrencyComponent/>
     <div class="calendar-container">
       <functional-calendar class="calendar-container__calendar" :is-dark='true'></functional-calendar>

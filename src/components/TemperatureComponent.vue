@@ -51,6 +51,7 @@ import Chart from 'chart.js';
 
 export default {
   name: 'TemperatureComponent',
+  props: ['color'],
   data() {
     return {
       temperature: '',
@@ -68,7 +69,7 @@ export default {
     };
   },
   methods: {
-    async getWeatherData() {
+    getWeatherData() {
       var hourly = [];
       var daily = [];
       var dailyLabels = [];
@@ -112,7 +113,17 @@ export default {
         });
 
     },
-    drawChart(temps, labels, context) {
+    async drawChart(temps, labels, context) {
+
+      let userID = sessionStorage.getItem('loggedUserId');
+      let userChartColor;
+      let that = this;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        userChartColor = data.child('chartColor').node_.value_;
+      });
+
+      let color = '#' + userChartColor;
 
       new Chart(context, {
           type: 'bar',
@@ -121,7 +132,7 @@ export default {
             datasets: [
               {
                 label: "Temperature in Celsius degrees",
-                backgroundColor: "#3e95cd",
+                backgroundColor: color,
                 data: temps
               }
             ]

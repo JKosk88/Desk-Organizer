@@ -1,6 +1,6 @@
 <template>
     <div class="root">
-      <TopBar title='Settings' to='/Main'/>
+      <TopBar title='Settings' to='/main' />
       <div class="image-container">
         <img src="../assets/person.png" alt="person icon" class="img-fluid"/>
       </div>
@@ -20,6 +20,9 @@
         </div>
         <div class="bg-white">Customize dashboard</div>
         <div class="bg-white">Reset to default</div>
+        <button v-on:click="changeColor('FF9E00')" style="backgroundColor: #FF9E00">change color</button>
+        <button v-on:click="changeColor('00A2FF')" style="backgroundColor: #00A2FF">change color</button>
+        <button v-on:click="changeColor('FF0042')" style="backgroundColor: #FF0042">change color</button>
       </div>
     </div>
 </template>
@@ -27,6 +30,14 @@
 <script>
 export default {
   name: 'Settings',
+  methods: {
+    changeColor(color){
+      let userID = sessionStorage.getItem('loggedUserId');
+      firebase.database().ref('users/' + userID).update({
+        chartColor: color
+      })
+    }
+  }
 };
 </script>
 

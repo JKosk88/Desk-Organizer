@@ -11,8 +11,6 @@
         <div class="functional-container">
           <input placeholder="Email*" id="email" type="email" v-model="email">
           <input placeholder="Password*" type="password" id="pass" v-model="pass">
-<!--          <CustomInput type="email" placeholder="Email*"/>-->
-<!--          <CustomInput type="password" placeholder="Password*"/>-->
           <p v-show="hint">Make sure you typed in email and password correctly.</p>
           <div v-on:click="checkUserAccount()">
             <CustomButton class="custom-btn mt-3" text="Sign in"/>
