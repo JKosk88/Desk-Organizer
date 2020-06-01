@@ -59,6 +59,7 @@ export default {
 .root {
   height: 100vh;
   color: white;
+  overflow: visible;
 }
 .spacer {
   height: 1px;
@@ -66,10 +67,7 @@ export default {
   opacity: .5;
 }
 .custom-btn {
-  margin-top: 100px;
-  @media (min-width: 900px) {
-    margin-top: 30px;
-  }
+  margin-top: 30px;
 }
 .functional-container {
   margin-top: 30px;

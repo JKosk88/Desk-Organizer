@@ -45,6 +45,7 @@ export default {
 .root {
   height: 100vh;
   color: white;
+  overflow: visible;
 }
 .image-container {
   margin: 10% auto 0 auto;

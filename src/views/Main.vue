@@ -1,12 +1,13 @@
 <template>
   <div class="root d-flex">
     <router-link to="/home">
-    <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
+      <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
     </router-link>
     <TemperatureComponent></TemperatureComponent>
     <p>{{color2}}</p>
     <CurrencyComponent/>
     <div class="calendar-container">
+      <img v-on:click="goToAddEvent()" src="../assets/addEvent.svg" alt="add event" class="img-fluid addEvent" style="cursor: pointer;"/>
       <functional-calendar class="calendar-container__calendar" :is-dark='true'></functional-calendar>
     </div>
   </div>
@@ -16,6 +17,11 @@
 <script>
 export default {
   name: 'Main',
+  methods: {
+    goToAddEvent() {
+      this.$router.push('/addEvent');
+    },
+  }
 };
 </script>
 
@@ -60,6 +66,17 @@ export default {
     max-height: 250px;
     @media (min-width: 900px) {
       max-height: 100%;
+    }
+  }
+  .addEvent {
+    max-width: 25px;
+    position: absolute;
+    left: 15px;
+    top: -20px;
+    @media (min-width: 900px) {
+      max-width: 50px;
+      top: 10px;
+      left: 20px;
     }
   }
 }
