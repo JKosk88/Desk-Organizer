@@ -29,7 +29,7 @@
           <label for="weather-type">Select displayed weather type</label>
           <b-form-select id="weather-type" class="chart-select" v-model="weatherType" :options="weatherList"></b-form-select>
         </div>
-        <div class="bg-grey">Reset to default</div>
+        <!-- <div class="bg-grey">Reset to default</div> -->
         <div class="text-center">
           <b-button class="btn" id='reset' v-on:click="resetSettings()">Reset settings</b-button>
           <b-button class="btn" variant="success" v-on:click="applyChanges()">Apply changes</b-button>
