@@ -23,13 +23,12 @@
         <b-form-checkbox class="checkbox" size="md" v-model="detailedWeatherDisplay" switch>Display details about weather</b-form-checkbox>
         <div class="chartColorSelection">
           <label for="chart-color">Select your chart color</label>
-          <b-form-select id="chart-color" class="chart-select" v-model="chartColor" :options="chartList"></b-form-select>
+          <b-form-select id="chart-color" class="chart-select" v-model="chartColor" v-on:change="changeInputColor()" :options="chartList"></b-form-select>
         </div>
         <div class="weatherTypeSelection">
           <label for="weather-type">Select displayed weather type</label>
           <b-form-select id="weather-type" class="chart-select" v-model="weatherType" :options="weatherList"></b-form-select>
         </div>
-        <!-- <div class="bg-grey">Reset to default</div> -->
         <div class="text-center">
           <b-button class="btn" id='reset' v-on:click="resetSettings()">Reset settings</b-button>
           <b-button class="btn" variant="success" v-on:click="applyChanges()">Apply changes</b-button>
@@ -69,6 +68,9 @@ export default {
     };
   },
   methods: {
+    changeInputColor(){
+      document.getElementById('chart-color').style.borderColor = '#' + this.chartColor;
+    },
     applyChanges() {
       let color = document.getElementById('chart-color').value;
       let type = document.getElementById('weather-type').value;
@@ -86,8 +88,6 @@ export default {
         });
         }
       }
-
-      this.checkChartColor();
     },
 
     changeColor(color){
@@ -192,6 +192,12 @@ export default {
   color: black;
   background-color: rgb(255, 255, 255);
   border-color: red;
+}
+#chart-color{
+  outline: none;
+  &:focus {
+    box-shadow: none;
+  }
 }
 .newpass {
   border: none;
