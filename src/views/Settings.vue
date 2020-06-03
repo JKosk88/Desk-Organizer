@@ -31,11 +31,9 @@
         </div>
         <div class="bg-grey">Reset to default</div>
         <div class="text-center">
-          <b-button class="confirmBtn" variant="success" v-on:click="validatePass()">Apply changes</b-button>
+          <b-button class="btn" id='reset' v-on:click="resetSettings()">Reset settings</b-button>
+          <b-button class="btn" variant="success" v-on:click="validatePass()">Apply changes</b-button>
         </div>
-        <button v-on:click="changeColor('FF9E00')" style="backgroundColor: #FF9E00">change color</button>
-        <button v-on:click="changeColor('00A2FF')" style="backgroundColor: #00A2FF">change color</button>
-        <button v-on:click="changeColor('FF0042')" style="backgroundColor: #FF0042">change color</button>
       </div>
     </div>
 </template>
@@ -43,14 +41,6 @@
 <script>
 export default {
   name: 'Settings',
-  methods: {
-    changeColor(color){
-      let userID = sessionStorage.getItem('loggedUserId');
-      firebase.database().ref('users/' + userID).update({
-        chartColor: color
-      })
-    }
-  },
   data() {
     return {
       newPassword: '',
@@ -75,9 +65,43 @@ export default {
   },
   methods: {
     validatePass() {
-      var regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-      this.validPass = regex.test(this.newPassword);
+      let color = document.getElementById('chart-color').value;
+      let type = document.getElementById('weather-type').value;
+
+      this.changeWeatherForecastType(type);
+      this.changeColor(color);
+
+      if (this.newPassword.length >= 1) {
+        var regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        this.validPass = regex.test(this.newPassword);
+        if (this.validPass) {
+          let userID = sessionStorage.getItem('loggedUserId');
+          firebase.database().ref('users/' + userID).update({
+            pass: this.newPassword
+        });
+        }
+      }
     },
+    changeColor(color){
+      if (color) {
+        let userID = sessionStorage.getItem('loggedUserId');
+        firebase.database().ref('users/' + userID).update({
+          chartColor: color
+        });
+      }
+    },
+    changeWeatherForecastType(type){
+      if (type) {
+        let userID = sessionStorage.getItem('loggedUserId');
+        firebase.database().ref('users/' + userID).update({
+          weatherForecastType: type
+        });
+      }
+    },
+    resetSettings(){
+      this.changeColor('FFFFFF');
+      this.changeWeatherForecastType('hourly');
+    }
   },
 };
 </script>
@@ -122,9 +146,15 @@ export default {
     opacity: .5;
   }
 }
-.confirmBtn {
+.btn {
   border-radius: 20px;
   padding: 8px 40px;
+  margin: 7px;
+}
+#reset{
+  color: black;
+  background-color: rgb(255, 255, 255);
+  border-color: red;
 }
 .newpass {
   border: none;

@@ -4,7 +4,6 @@
       <LogoutWithGoogle class="logout" title="Logout"></LogoutWithGoogle>
     </router-link>
     <TemperatureComponent></TemperatureComponent>
-    <p>{{color2}}</p>
     <CurrencyComponent/>
     <div class="calendar-container">
       <img v-on:click="goToAddEvent()" src="../assets/addEvent.svg" alt="add event" class="img-fluid addEvent" style="cursor: pointer;"/>

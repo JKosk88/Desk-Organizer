@@ -65,7 +65,7 @@ export default {
       hourlyTempChart: [],
       dailyTempChart: [],
       hourlyForecast: false,
-      dailyForecast: true,
+      // dailyForecast: true,
     };
   },
   methods: {
@@ -144,8 +144,19 @@ export default {
         });
     }
   },
-  mounted () {
+  async mounted () {
     this.getWeatherData();
+    let type;
+
+    let userID = sessionStorage.getItem('loggedUserId');
+    await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        type = data.child('weatherForecastType').node_.value_;
+    });
+    if (type === 'daily') {
+      this.hourlyForecast = false;
+    } else {
+      this.hourlyForecast = true;
+    }
   }
 }
 </script>
