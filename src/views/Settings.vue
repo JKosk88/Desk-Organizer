@@ -8,7 +8,7 @@
         <div class="bg-grey">
           <span>Email address</span>
         </div>
-        <div class="bg-white">{{this.userEmail}}</div>
+        <div class="bg-white">{{ this.userEmail }}</div>
         <div class="bg-grey">
           <span>Set new password</span>
         </div>
@@ -32,7 +32,7 @@
         <div class="bg-grey">Reset to default</div>
         <div class="text-center">
           <b-button class="btn" id='reset' v-on:click="resetSettings()">Reset settings</b-button>
-          <b-button class="btn" variant="success" v-on:click="validatePass()">Apply changes</b-button>
+          <b-button class="btn" variant="success" v-on:click="applyChanges()">Apply changes</b-button>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       newPassword: '',
-      userEmail: 'example@email.com',
+      userEmail: '',
       validPass: null,
       calendarDisplay: true,
       detailedWeatherDisplay: true,
@@ -55,6 +55,11 @@ export default {
           { value: 'FF9E00', text: 'Orange' },
           { value: '00A2FF', text: 'Blue' },
           { value: 'FF0042', text: 'Red' },
+          { value: '00FF80', text: 'Mint' },
+          { value: 'B900FF', text: 'Violet' },
+          { value: 'F4F700', text: 'Yellow' },
+          { value: '07F700', text: 'Green' },
+          { value: 'FF01BD', text: 'Pink' },
         ],
       weatherList: [
           { value: null, text: 'Please select an option' },
@@ -64,7 +69,7 @@ export default {
     };
   },
   methods: {
-    validatePass() {
+    applyChanges() {
       let color = document.getElementById('chart-color').value;
       let type = document.getElementById('weather-type').value;
 
@@ -81,7 +86,10 @@ export default {
         });
         }
       }
+
+      this.checkChartColor();
     },
+
     changeColor(color){
       if (color) {
         let userID = sessionStorage.getItem('loggedUserId');
@@ -90,6 +98,7 @@ export default {
         });
       }
     },
+
     changeWeatherForecastType(type){
       if (type) {
         let userID = sessionStorage.getItem('loggedUserId');
@@ -98,11 +107,39 @@ export default {
         });
       }
     },
+
     resetSettings(){
       this.changeColor('FFFFFF');
       this.changeWeatherForecastType('hourly');
+    },
+
+    async checkChartColor(){
+
+      let userID = sessionStorage.getItem('loggedUserId');
+      let userChartColor;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        userChartColor = data.child('chartColor').node_.value_;
+      });
+
+      document.getElementById("chart-color").style.borderColor = "#" + userChartColor;
+    },
+
+    async getUserEmail(){
+      let userID = sessionStorage.getItem('loggedUserId');
+      let email;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        email = data.child('email').node_.value_;
+      });
+
+      this.userEmail = email;
     }
   },
+  mounted() {
+    this.getUserEmail();
+    this.checkChartColor();
+  }
 };
 </script>
 
