@@ -7,19 +7,29 @@
     <CurrencyComponent/>
     <div class="calendar-container">
       <img v-on:click="goToAddEvent()" src="../assets/addEvent.svg" alt="add event" class="img-fluid addEvent" style="cursor: pointer;"/>
-      <functional-calendar class="calendar-container__calendar" :is-dark='true'></functional-calendar>
+      <functional-calendar v-if="getCalendarBool" class="calendar-container__calendar" :is-dark='true'></functional-calendar>
     </div>
   </div>
 
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Main',
+  data() {
+    return {
+
+    };
+  },
   methods: {
     goToAddEvent() {
       this.$router.push('/addEvent');
     },
+  },
+  computed: {
+    ...mapGetters(['getCalendarBool']),
   }
 };
 </script>

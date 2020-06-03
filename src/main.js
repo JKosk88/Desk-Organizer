@@ -19,6 +19,7 @@ import { LoaderPlugin } from 'vue-google-login';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './registerServiceWorker';
+import { store } from './store';
 
 Vue.component('CustomButton', CustomButton);
 Vue.component('CustomInput', CustomInput);
@@ -57,6 +58,7 @@ export const db = firebase.firestore();
 
 new Vue({
   router,
+  store,
   mode: 'hash',
   render: (h) => h(App),
 }).$mount('#app');

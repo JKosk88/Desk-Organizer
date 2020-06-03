@@ -4,7 +4,7 @@
       <div class="image-container">
         <img src="../assets/person.png" alt="person icon" class="img-fluid"/>
       </div>
-      <div class="menu mt-5">
+      <div class="menu mt-5 mb-5">
         <div class="bg-grey">
           <span>Email address</span>
         </div>
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Settings',
   data() {
@@ -88,6 +90,8 @@ export default {
         });
         }
       }
+
+      this.changeCalendarDisplay();
     },
 
     changeColor(color){
@@ -134,11 +138,21 @@ export default {
       });
 
       this.userEmail = email;
+    },
+
+    changeCalendarDisplay() {
+      this.$store.dispatch('changeCalendar');
+      this.$store.dispatch('changeWeather');
     }
   },
   mounted() {
     this.getUserEmail();
     this.checkChartColor();
+    this.calendarDisplay = this.getCalendarBool;
+    this.detailedWeatherDisplay = this.getWeatherBool;
+  },
+  computed: {
+    ...mapGetters(['getCalendarBool', 'getWeatherBool']),
   }
 };
 </script>
@@ -192,6 +206,10 @@ export default {
   color: black;
   background-color: rgb(255, 255, 255);
   border-color: red;
+  &:hover {
+      background-color: rgb(184, 73, 73);
+      color: #fff;
+    }
 }
 #chart-color{
   outline: none;

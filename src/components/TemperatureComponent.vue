@@ -1,53 +1,56 @@
 <template>
 <div class="root">
   <DateTimeComponent v-if="weather" :weather="weather"></DateTimeComponent>
-  <div class="d-flex justify-content-between">
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
-      <div class="humidity">{{ humidity }} %</div>
+  <div v-if="getWeatherBool">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
+        <div class="humidity">{{ humidity }} %</div>
+      </div>
+
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
+        <div class="temp">{{ temperature }} °C</div>
+      </div>
     </div>
 
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/temperature.svg'/>
-      <div class="temp">{{ temperature }} °C</div>
-    </div>
-  </div>
+    <div class="d-flex justify-content-between mt-2">
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
+        <div class="pressure">{{ pressure }} hPa</div>
+      </div>
 
-  <div class="d-flex justify-content-between mt-2">
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/pressure.svg'/>
-      <div class="pressure">{{ pressure }} hPa</div>
-    </div>
-
-    <div class="d-flex weather-row">
-      <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
-      <div class="wind">{{ windSpeed }} km/h</div>
-    </div>
-  </div>
-
-  <canvas v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast" id="bar-chart-h" width="800" height="200" class='chart'></canvas>
-  <canvas v-show="!hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast" id="bar-chart-d" width="800" height="200" class='chart'></canvas>
-
-  <div class="mt-2" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast">
-    <div class="htempdiv d-flex justify-content-between" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
-      <div>{{ temp[0] }}</div>
-      <div>{{ temp[2] }}</div>
-      <div><b>{{ temp[1] }}</b></div>
+      <div class="d-flex weather-row">
+        <img class="iconweather" alt="weather icon" src='../assets/wind.svg'/>
+        <div class="wind">{{ windSpeed }} km/h</div>
+      </div>
     </div>
   </div>
 
-  <div class="mt-2" v-show="!hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast">
-    <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in dailyTemp">
-      <div class="d-flex justify-content-between">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
-      <div>{{ temp[2] }}</div>
-      <div class="spacer"></div>
+    <canvas v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast" id="bar-chart-h" width="800" height="200" class='chart'></canvas>
+    <canvas v-show="!hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast" id="bar-chart-d" width="800" height="200" class='chart'></canvas>
+
+    <div class="mt-2" v-show="hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast">
+      <div class="htempdiv d-flex justify-content-between" :key="`item-${index}`" v-for="(temp, index) in hourlyTemp">
+        <div>{{ temp[0] }}</div>
+        <div>{{ temp[2] }}</div>
+        <div><b>{{ temp[1] }}</b></div>
+      </div>
     </div>
-  </div>
+
+    <div class="mt-2" v-show="!hourlyForecast" v-on:click="hourlyForecast = !hourlyForecast">
+      <div class="htempdiv" :key="`item-${index}`" v-for="(temp, index) in dailyTemp">
+        <div class="d-flex justify-content-between">{{ temp[0] }} <b>{{ temp[1] }}</b></div>
+        <div>{{ temp[2] }}</div>
+        <div class="spacer"></div>
+      </div>
+    </div>
 </div>
 </template>
 
 <script>
 import Chart from 'chart.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'TemperatureComponent',
@@ -67,6 +70,9 @@ export default {
       hourlyForecast: false,
       // dailyForecast: true,
     };
+  },
+  computed: {
+    ...mapGetters(['getWeatherBool']),
   },
   methods: {
     getWeatherData() {
