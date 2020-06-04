@@ -19,7 +19,7 @@
         <div class="bg-grey">
           <span>Customize</span>
         </div>
-        <b-form-checkbox class="checkbox" size="md" checked v-model="calendarDisplay" switch>Display calendar</b-form-checkbox>
+        <b-form-checkbox class="checkbox" size="md" v-model="calendarDisplay" switch>Display calendar</b-form-checkbox>
         <b-form-checkbox class="checkbox" size="md" v-model="detailedWeatherDisplay" switch>Display details about weather</b-form-checkbox>
         <div class="chartColorSelection">
           <label for="chart-color">Select your chart color</label>
@@ -79,6 +79,8 @@ export default {
 
       this.changeWeatherForecastType(type);
       this.changeColor(color);
+      this.changeCalendarDisplay(this.calendarDisplay);
+      this.changeWeatherDisplay(this.detailedWeatherDisplay);
 
       if (this.newPassword.length >= 1) {
         var regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
@@ -91,7 +93,6 @@ export default {
         }
       }
 
-      this.changeCalendarDisplay();
     },
 
     changeColor(color){
@@ -101,6 +102,20 @@ export default {
           chartColor: color
         });
       }
+    },
+
+    changeCalendarDisplay(boo){
+        let userID = sessionStorage.getItem('loggedUserId');
+        firebase.database().ref('users/' + userID).update({
+          displayCalendar: boo
+        });
+    },
+
+    changeWeatherDisplay(boo){
+        let userID = sessionStorage.getItem('loggedUserId');
+        firebase.database().ref('users/' + userID).update({
+          displayWeatherDetails: boo
+        });
     },
 
     changeWeatherForecastType(type){
@@ -129,6 +144,30 @@ export default {
       document.getElementById("chart-color").style.borderColor = "#" + userChartColor;
     },
 
+    async getCalendarBool(){
+
+      let userID = sessionStorage.getItem('loggedUserId');
+      let calendarBool;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        calendarBool = data.child('displayCalendar').node_.value_;
+      });
+
+      this.calendarDisplay = calendarBool;
+    },
+
+    async getWeatherBool(){
+
+      let userID = sessionStorage.getItem('loggedUserId');
+      let weatherBool;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        weatherBool = data.child('displayWeatherDetails').node_.value_;
+      });
+
+      this.detailedWeatherDisplay = weatherBool;
+    },
+
     async getUserEmail(){
       let userID = sessionStorage.getItem('loggedUserId');
       let email;
@@ -140,19 +179,19 @@ export default {
       this.userEmail = email;
     },
 
-    changeCalendarDisplay() {
-      this.$store.dispatch('changeCalendar');
-      this.$store.dispatch('changeWeather');
-    }
   },
   mounted() {
     this.getUserEmail();
     this.checkChartColor();
-    this.calendarDisplay = this.getCalendarBool;
-    this.detailedWeatherDisplay = this.getWeatherBool;
+    this.getCalendarBool();
+    this.getWeatherBool();
+
+    console.log(this.calendarDisplay);
+    console.log(this.detailedWeatherDisplay);
+
   },
   computed: {
-    ...mapGetters(['getCalendarBool', 'getWeatherBool']),
+
   }
 };
 </script>

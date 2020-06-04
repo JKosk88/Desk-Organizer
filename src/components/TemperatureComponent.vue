@@ -1,7 +1,7 @@
 <template>
 <div class="root">
   <DateTimeComponent v-if="weather" :weather="weather"></DateTimeComponent>
-  <div v-if="getWeatherBool">
+  <div v-if="detailedWeatherDisplay">
     <div class="d-flex justify-content-between">
       <div class="d-flex weather-row">
         <img class="iconweather" alt="weather icon" src='../assets/humidity.svg'/>
@@ -49,8 +49,6 @@
 </template>
 
 <script>
-import Chart from 'chart.js';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'TemperatureComponent',
@@ -68,11 +66,9 @@ export default {
       hourlyTempChart: [],
       dailyTempChart: [],
       hourlyForecast: false,
+      detailedWeatherDisplay: true,
       // dailyForecast: true,
     };
-  },
-  computed: {
-    ...mapGetters(['getWeatherBool']),
   },
   methods: {
     getWeatherData() {
@@ -119,6 +115,19 @@ export default {
         });
 
     },
+
+    async getWeatherBool(){
+
+      let userID = sessionStorage.getItem('loggedUserId');
+      let weatherBool;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        weatherBool = data.child('displayWeatherDetails').node_.value_;
+      });
+
+      this.detailedWeatherDisplay = weatherBool;
+    },
+
     async drawChart(temps, labels, context) {
 
       let userID = sessionStorage.getItem('loggedUserId');
@@ -163,6 +172,8 @@ export default {
     } else {
       this.hourlyForecast = true;
     }
+
+    this.getWeatherBool();
   }
 }
 </script>

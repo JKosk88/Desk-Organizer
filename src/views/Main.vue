@@ -7,7 +7,7 @@
     <CurrencyComponent/>
     <div class="calendar-container">
       <img v-on:click="goToAddEvent()" src="../assets/addEvent.svg" alt="add event" class="img-fluid addEvent" style="cursor: pointer;"/>
-      <functional-calendar v-if="getCalendarBool" class="calendar-container__calendar" :is-dark='true'></functional-calendar>
+      <functional-calendar v-if="calendarDisplay" class="calendar-container__calendar" :is-dark='true'></functional-calendar>
     </div>
   </div>
 
@@ -20,17 +20,32 @@ export default {
   name: 'Main',
   data() {
     return {
-
+      calendarDisplay: true,
     };
   },
   methods: {
     goToAddEvent() {
       this.$router.push('/addEvent');
     },
+    async getCalendarBool(){
+
+      let userID = sessionStorage.getItem('loggedUserId');
+      let calendarBool;
+
+      await firebase.database().ref('users/' + userID + '/').once("value", function (data) {
+        calendarBool = data.child('displayCalendar').node_.value_;
+      });
+
+      this.calendarDisplay = calendarBool;
+    },
   },
   computed: {
-    ...mapGetters(['getCalendarBool']),
-  }
+
+  },
+   mounted() {
+    this.getCalendarBool();
+    this.getWeatherBool();
+  },
 };
 </script>
 
