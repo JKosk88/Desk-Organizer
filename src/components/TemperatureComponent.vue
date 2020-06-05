@@ -67,7 +67,6 @@ export default {
       dailyTempChart: [],
       hourlyForecast: false,
       detailedWeatherDisplay: true,
-      // dailyForecast: true,
     };
   },
   methods: {

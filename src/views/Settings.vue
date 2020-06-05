@@ -19,8 +19,8 @@
         <div class="bg-grey">
           <span>Customize</span>
         </div>
-        <b-form-checkbox class="checkbox" size="md" v-model="calendarDisplay" switch>Display calendar</b-form-checkbox>
-        <b-form-checkbox class="checkbox" size="md" v-model="detailedWeatherDisplay" switch>Display details about weather</b-form-checkbox>
+        <b-form-checkbox class="checkbox" size="md" id='calendar-display' v-model="calendarDisplay" switch>Display calendar</b-form-checkbox>
+        <b-form-checkbox class="checkbox" size="md" id='weather-display' v-model="detailedWeatherDisplay" switch>Display details about weather</b-form-checkbox>
         <div class="chartColorSelection">
           <label for="chart-color">Select your chart color</label>
           <b-form-select id="chart-color" class="chart-select" v-model="chartColor" v-on:change="changeInputColor()" :options="chartList"></b-form-select>
@@ -130,6 +130,11 @@ export default {
     resetSettings(){
       this.changeColor('FFFFFF');
       this.changeWeatherForecastType('hourly');
+      document.getElementById('chart-color').style.borderColor = '#FFF';
+      document.getElementById("calendar-display").checked = true;
+      document.getElementById("weather-display").checked = true;
+      this.changeCalendarDisplay(true);
+      this.changeWeatherDisplay(true);
     },
 
     async checkChartColor(){
