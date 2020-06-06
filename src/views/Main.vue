@@ -8,6 +8,7 @@
     <div class="calendar-container">
       <img v-on:click="goToAddEvent()" src="../assets/addEvent.svg" alt="add event" class="img-fluid addEvent" style="cursor: pointer;"/>
       <functional-calendar v-if="calendarDisplay" class="calendar-container__calendar" :is-dark='true'></functional-calendar>
+      <Events class ="events" />
     </div>
   </div>
 
@@ -69,6 +70,7 @@ export default {
 }
 .calendar-container {
   display: flex;
+  flex-direction: column;
   width: 40%;
   justify-content: center;
   align-items: top;
@@ -83,7 +85,7 @@ export default {
     min-width: 40%;
     @media (min-width: 900px) {
       width: 100%;
-      margin-top: 10%;
+      margin-top: 5%;
     }
   }
   .vfc-calendar {
@@ -99,9 +101,12 @@ export default {
     top: -20px;
     @media (min-width: 900px) {
       max-width: 50px;
-      top: 10px;
+      top: -20px;
       left: 20px;
     }
+  }
+  .events {
+    margin-top: 100px;
   }
 }
 </style>
