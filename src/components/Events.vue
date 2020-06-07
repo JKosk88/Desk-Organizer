@@ -1,17 +1,22 @@
 <template>
   <div >
-    <div class="htempdiv d-flex justify-content-between" :key="`item-${index}`" v-for="(item, index) in eventTitle">
+    <h2 class="text-center mb-3">Incoming events</h2>
+    <div class="htempdiv d-flex justify-content-between events-header">
+      <div class="eventName text-center">Event name</div>
+      <div>Starts</div>
+      <div>Ends</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="htempdiv d-flex justify-content-between events-data" :key="`item-${index}`" v-for="(item, index) in eventTitle">
       <div class="eventName">{{ item }}</div>
-      <div class="spacer"></div>
       <div>{{ eventDateFrom[index] }}</div>
-      <div><b>{{ eventDateTo[index] }}</b></div>
+      <div>{{ eventDateTo[index] }}</div>
     </div>
   </div>
 
 </template>
 
 <script>
-
 
   export default {
         name: "Events",
@@ -46,7 +51,6 @@
                 refToStartDates.push(fromDate);
                 refToEndDates.push(toDate);
               }
-
             }
 
             function errData(err) {
@@ -61,8 +65,7 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
   .htempdiv{
     margin-top: 10px;
     font-size: 1rem;
@@ -74,9 +77,20 @@
     opacity: .3;
   }
   .eventName {
-    width:30%;
-
+    width: 30%;
   }
-
+  .events-header {
+    font-weight: bold;
+    font-size: 0.8rem;
+    @media (min-width: 900px) {
+      font-size: 1rem;
+    }
+  }
+  .events-data {
+    font-size: 0.6rem;
+    @media (min-width: 900px) {
+      font-size: 1rem;
+    }
+  }
 
 </style>

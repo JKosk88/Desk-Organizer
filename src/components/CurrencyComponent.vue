@@ -1,7 +1,7 @@
 <template>
   <div class="root text-center mt-3">
     <div class="image-container">
-      <img v-on:click="goToSettings()" src="../assets/person.png" alt="user icon" class="img-fluid" style="cursor: pointer;"/>
+      <div v-on:click="goToSettings()" class="personIcon" style="cursor: pointer;"></div>
     </div>
     <div v-for="(item, index) in currency_items" :key="`item-${index}`" class="currency-item">
       <div class="d-flex justify-content-center mt-2">
@@ -95,6 +95,22 @@ export default {
   max-width: 10%;
   @media (min-width: 900px) {
     max-width: 5%;
+  }
+}
+.personIcon {
+  margin: 0 auto;
+  background-image: url("../assets/person.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: all .25s ease-in-out;
+  height: 50px;
+  width: 50px;
+  @media (min-width: 900px) {
+    height: 100px;
+    width: 100px;
+  }
+  &:hover {
+    background-image: url("../assets/person-grey.png");
   }
 }
 </style>
