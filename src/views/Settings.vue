@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'Settings',
   data() {
@@ -92,7 +90,12 @@ export default {
         });
         }
       }
-
+      this.$notify({
+          group: 'settings',
+          type: 'success',
+          title: 'Success!',
+          text: 'New settings has been applied.'
+      });
     },
 
     changeColor(color){
@@ -135,6 +138,13 @@ export default {
       document.getElementById("weather-display").checked = true;
       this.changeCalendarDisplay(true);
       this.changeWeatherDisplay(true);
+
+      this.$notify({
+          group: 'reset',
+          type: 'warn',
+          title: 'Reset successfully!',
+          text: 'All settings restored to default.'
+      });
     },
 
     async checkChartColor(){

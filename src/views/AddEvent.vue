@@ -5,7 +5,6 @@
       <b-container fluid="sm">
         <div class="functional-container">
           <input placeholder="Event Title*" type="text" v-model="title">
-<!--          <CustomInput type="text" placeholder="Event Title" v-model="title"/>-->
           <div class="setEventTime mt-5">
               <div class="d-flex justify-content-between align-items-center">
                 <p style="opacity: .7">Start</p>
@@ -20,7 +19,7 @@
           <div v-on:click="addEvent()">
             <CustomButton class="custom-btn" text="Add event"/>
           </div>
-          <p v-show="hint" id="hint" style="opacity: .7"></p>
+          <p class="text-center" v-show="hint" id="hint"></p>
         </div>
       </b-container>
     </div>
@@ -39,17 +38,20 @@ export default {
   },
   methods: {
     addEvent() {
-      // eslint-disable-next-line radix
       const localId = parseInt(sessionStorage.getItem('loggedUserId'));
+
       if (this.from !== '' && this.to !== '' && this.title !== '') {
-        document.getElementById('hint').innerText = 'Event added';
-        // eslint-disable-next-line no-undef
+        this.$notify({
+          group: 'events',
+          type: 'success',
+          title: 'Success!',
+          text: 'New event has been added to your schedule.'
+        });
         addNewEvent(localId, this.from, this.to, this.title);
       } else {
-        document.getElementById('hint').innerText = 'You can not add empty event';
+        document.getElementById('hint').innerText = 'You cannot add an empty event.';
       }
       this.hint = true;
-      // console.log(localId, ' ', this.from, ' <- from', this.title, this.to);
     },
   },
 };
@@ -88,5 +90,8 @@ input {
   outline: none;
   border: none;
   padding: 10px;
+}
+#hint {
+  color: red;
 }
 </style>

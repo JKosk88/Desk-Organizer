@@ -6,8 +6,9 @@
     <TemperatureComponent></TemperatureComponent>
     <CurrencyComponent/>
     <div class="calendar-container">
-      <img v-on:click="goToAddEvent()" src="../assets/addEvent.svg" alt="add event" class="img-fluid addEvent" style="cursor: pointer;"/>
+      <div v-on:click="goToAddEvent()" class="addEventBtn" style="cursor: pointer;"></div>
       <functional-calendar v-if="calendarDisplay" class="calendar-container__calendar" :is-dark='true'></functional-calendar>
+      <Events class ="events" />
     </div>
   </div>
 
@@ -60,17 +61,11 @@ export default {
   right: 0;
   position: absolute;
   width: auto !important;
-  border: 1px solid #fff;
-  margin: 2px;
-  &:hover {
-    background-color: white;
-    color: black;
-  }
 }
 .calendar-container {
   display: flex;
+  flex-direction: column;
   width: 40%;
-  justify-content: center;
   align-items: top;
   position: relative;
   padding: 10px;
@@ -79,11 +74,12 @@ export default {
     margin-top: 50px;
   }
   &__calendar {
-    max-height: 40%;
+    max-height: 45%;
     min-width: 40%;
     @media (min-width: 900px) {
       width: 100%;
-      margin-top: 10%;
+      margin-top: 5%;
+      max-height: 40%;
     }
   }
   .vfc-calendar {
@@ -99,7 +95,33 @@ export default {
     top: -20px;
     @media (min-width: 900px) {
       max-width: 50px;
-      top: 10px;
+      top: -20px;
+      left: 20px;
+    }
+  }
+  .events {
+    margin-top: 60px;
+    @media (min-width: 900px) {
+      margin-top: 50px;
+    }
+  }
+  .addEventBtn {
+    background-image: url("../assets/addEvent.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 15px;
+    top: -20px;
+    transition: all .25s ease-in-out;
+    width: 30px;
+    height: 30px;
+    &:hover {
+      background-image: url("../assets/addEvent-grey.svg");
+    }
+    @media (min-width: 900px) {
+      width: 50px;
+      height: 50px;
+      top: -20px;
       left: 20px;
     }
   }

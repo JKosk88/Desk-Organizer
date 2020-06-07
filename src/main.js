@@ -14,12 +14,14 @@ import LoginWithGoogle from './components/LoginWithGoogle.vue';
 import LogoutWithGoogle from './components/LogoutWithGoogle.vue';
 import DateTimeComponent from './components/DateTimeComponent.vue';
 import CurrencyComponent from './components/CurrencyComponent.vue';
+import Events from './components/Events.vue';
 import { FunctionalCalendar } from 'vue-functional-calendar';
 import { LoaderPlugin } from 'vue-google-login';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './registerServiceWorker';
 import { store } from './store';
+import Notifications from 'vue-notification';
 
 Vue.component('CustomButton', CustomButton);
 Vue.component('CustomInput', CustomInput);
@@ -31,10 +33,12 @@ Vue.component('LogoutWithGoogle', LogoutWithGoogle);
 Vue.component('DateTimeComponent', DateTimeComponent);
 Vue.component('CurrencyComponent', CurrencyComponent);
 Vue.component('FunctionalCalendar', FunctionalCalendar);
+Vue.component('Events', Events);
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueTextareaAutosize);
+Vue.use(Notifications);
 Vue.config.productionTip = false;
 Vue.use(LoaderPlugin, {
   client_id: '439953774653-7v3u79r0n9hd9imv844rlu621tnl8jq7.apps.googleusercontent.com',
