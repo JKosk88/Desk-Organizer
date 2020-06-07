@@ -1,6 +1,6 @@
 <template>
   <div >
-    <h2 class="text-center mb-3">Incoming events</h2>
+    <h2 class="text-center mb-3">Upcoming events</h2>
     <div class="htempdiv d-flex justify-content-between events-header">
       <div class="eventName text-center">Event name</div>
       <div>Starts</div>
